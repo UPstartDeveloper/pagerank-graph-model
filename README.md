@@ -4,7 +4,11 @@ A model for understanding Google's PangeRank algorithm, based upon the concepts 
 
 PageRank is the algorithm Google uses to sift through the absurd amounts of web pages out there, so that in search results you and I see only the most important and useful information related to our search.
 
+![Google 'G' on a chalkboard with computer science on it](https://i.postimg.cc/FHcdKh7y/Screen-Shot-2020-06-26-at-5-59-40-PM.png)
+Credits to Danny Sullivan, on Search Engine Land for the above image ([link to original site](https://searchengineland.com/what-is-google-pagerank-a-guide-for-searchers-webmasters-11068)).
+
 ## Table of Contents
+
 1. [How Graph Theory Relates to PageRank](#how-graph-theory-relates-to-pagerank)
 2. [How the Model is Structured](#how-the-model-is-structured)
 3. [Investigation](#investigation)
