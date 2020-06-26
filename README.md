@@ -4,6 +4,15 @@ A model for understanding Google's PangeRank algorithm, based upon the concepts 
 
 PageRank is the algorithm Google uses to sift through the absurd amounts of web pages out there, so that in search results you and I see only the most important and useful information related to our search.
 
+## Table of Contents
+1. [How Graph Theory Relates to PageRank](#how-graph-theory-relates-to-pagerank)
+2. [How the Model is Structured](#how-the-model-is-structured)
+3. [Investigation](#investigation)
+4. [Calculating the PageRank Rating for each Page in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
+5. [Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
+6. [Finding the Shortest Path Required to Get From One Page to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
+7. [Resources](#resources)
+
 ## How Graph Theory Relates to PageRank
 
 If there's two things that the Internet does well, it's:
@@ -26,17 +35,17 @@ More specifically, here are further details to specify the graph data structure 
 - **Edges are weighted**, in order to **represent the credibility** that Google assigns to links that come from certain websites, as opposed to others.
 - **Edges are directed**. This is because **hyperlinks are one-way connections**. ```Page A``` may link to ```Page B``` for example, but the reverse is not necessarily true.
 
+## How the Model is Structured
+
 ## Investigation
 
 In this project, we will take a look at several problems that Google uses the PageRank algorithm to solve, and modelling their solutions in code based upon the Graph ADT.
 
 **The problems are as follows:**
 
-### Calculating the PageRank Rating, for Each Page in a Network
+### Calculating the PageRank Rating for each Page in a Network
 
-
-
-### Determining Which Page(s) Can Be Arrived at,  After Clicking N links Away from a Starting Page
+### Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page
 
 This problem is an application of **Breadth-First Search**.
 
