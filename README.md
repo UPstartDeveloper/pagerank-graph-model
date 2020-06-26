@@ -11,11 +11,13 @@ Credits to Danny Sullivan, on Search Engine Land for the above image ([link to o
 
 1. [How Graph Theory Relates to PageRank](#how-graph-theory-relates-to-pagerank)
 2. [How the Model is Structured](#how-the-model-is-structured)
-3. [Investigation](#investigation)
-4. [Calculating the PageRank Rating for each Page in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
-5. [Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
-6. [Finding the Shortest Path Required to Get From One Page to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
-7. [Resources](#resources)
+3. [The ```Internet``` Class](#the-internet-class)
+4. [The ```Page``` Class](#the-page-class)
+5. [Investigation](#investigation)
+6. [Calculating the PageRank Rating for each Page in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
+7. [Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
+8. [Finding the Shortest Path Required to Get From One Page to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
+9. [Resources](#resources)
 
 ## How Graph Theory Relates to PageRank
 
@@ -40,6 +42,27 @@ More specifically, here are further details to specify the graph data structure 
 - **Edges are directed**. This is because **hyperlinks are one-way connections**. ```Page A``` may link to ```Page B``` for example, but the reverse is not necessarily true.
 
 ## How the Model is Structured
+
+The model is structured using Object-Orientated Programming. The properties and instance methods of the ```Page``` and ```Internet``` classes are below.
+
+### The ```Internet``` Class
+
+A representation of the World Wide Web. This class is a *composition* of many ```Page``` instances.
+
+#### Attributes of ```Internet```
+
+#### Methods of ```Internet```
+
+### The ```Page``` Class
+
+A representation of a single web pages.
+
+#### Attributes of ```Page```
+
+- ```str: id```: a unique name for the web page
+- ```float: importance```: a level of "importance" assigned to the web page. How this value is calculated by Google is currently outside the scope of this project.
+
+#### Methods of ```Page```
 
 ## Investigation
 
