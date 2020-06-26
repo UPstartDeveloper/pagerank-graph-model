@@ -20,22 +20,49 @@ This is because graphs **are also great** at:
 
 More specifically, here are further details to specify the graph data structure we will use in this project:
 
-- The graph in this case, will be represent all web pages on the Internet. Will be implemented using the ```Internet``` class.
+- The graph in this case, will be represent all web pages on the Internet. Will be implemented in Python using the ```Internet``` class.
 - Individual vertices in the graph are represented by the ```Page``` class.
 - **Edges** between the pages **represent hyperlinks** on the Internet.
 - **Edges are weighted**, in order to **represent the credibility** that Google assigns to links that come from certain websites, as opposed to others.
 - **Edges are directed**. This is because **hyperlinks are one-way connections**. ```Page A``` may link to ```Page B``` for example, but the reverse is not necessarily true.
 
-
 ## Investigation
 
 In this project, we will take a look at several problems that Google uses the PageRank algorithm to solve, and modelling their solutions in code based upon the Graph ADT.
 
-The problems are as follows:
+**The problems are as follows:**
 
-1. ```pass```
-2. ```pass```
-3. ```pass```
+### Calculating the PageRank Rating, for Each Page in a Network
+
+
+
+### Determining Which Page(s) Can Be Arrived at,  After Clicking N links Away from a Starting Page
+
+This problem is an application of **Breadth-First Search**.
+
+We will implement a function that will take three **parameters**:
+
+- an ```Internet``` instance
+- a ```str``` instance ```start_page_id```, representing the id value of the ```Page``` we start from
+- and an integer ```pages_away```, representing the number of links we click away from the ```start_page```
+
+which will **return** a ```destinations``` array of page ids which we can reach.
+
+The **runtime complexity** of this algorithm is ```O(P + E)```, where E is the number of links in our ```Internet```, and P is the number of ```Page``` instances.
+
+### Finding the Shortest Path Required to Get From One Page to Another
+
+This problem is an application of **Dijkstra's Shortest Path Algorithm**.
+
+We will implement a function that takes in three **parameters**:
+
+- an ```Internet``` instance
+- a ```str``` instance ```starting_page_id```
+- and a ```str``` instance ```target_page_id```
+
+which will **return** a ```path``` array of pages to reach from the start to the target.
+
+The **runtime complexity** of this algorithm is ```O(E log P)```, where E is the number of links in our ```Internet```, and P is the number of ```Page``` instances.
 
 ## Resources
 
