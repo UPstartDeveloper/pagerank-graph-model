@@ -54,6 +54,10 @@ A representation of the World Wide Web. This class is a *composition* of many ``
 
 - ```dict: pages```: this dictionary maps the ```id``` attribute of each ```Page``` instance, to the ```Page``` instance itself.
 
+#### Methods of ```Internet```
+
+*This section currently under construction*.
+
 ### The ```Page``` Class
 
 A representation of a single web page.
@@ -63,6 +67,10 @@ A representation of a single web page.
 - ```str: id```: a unique name for the web page
 - ```dict: neighbors```: this dictionary represents the other ```Page``` instances that can be reached using hyperlinks from this web page. The dictionary maps the ```id``` attribute of the other ```Page``` instances, to the other ```Page``` object.
 - ```float: link_weight``` is the weight that each edge from this ```Page``` instance carries. This attribute of the edge represents the probability a site visitor goes to any one of the neighboring sites linked by this ```Page``` instance. It is calculated as by dividing 100%, by the number of ```neighbors``` that page has. For example, if a ```Page``` has 2 ```neighbors``` that it links *towards* (aka its "outlinks"), then each of the ```weight``` values for those edges will be 0.50.
+
+#### Methods of ```Page```
+
+*This section currently under construction*.
 
 ## Investigation
 
