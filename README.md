@@ -21,12 +21,12 @@ Credits to Danny Sullivan, on Search Engine Land for the above image ([link to o
 
 ## How Graph Theory Relates to PageRank
 
-If there's two things that the Internet does well, it's:
+If there's two things that the Internet does really well, it's:
 
 1. **Storing** Information, and
 2. **Connecting** people with that information
 
-As it turns out, graphs are an optimal data structure to model the Web. Why? 
+As it turns out, graphs are an optimal data structure to model the Web. Why?
 
 This is because graphs **are also great** at:
 
@@ -36,9 +36,10 @@ This is because graphs **are also great** at:
 More specifically, here are further details to specify the graph data structure we will use in this project:
 
 - The graph in this case, will be represent all web pages on the Internet. Will be implemented in Python using the ```Internet``` class.
-- Individual vertices in the graph are represented by the ```Page``` class.
+- Individual vertices in the graph are implemented by the ```Page``` class.
+- Not all ```Page``` instances in the graph are necessarily connected.
 - **Edges** between the pages **represent hyperlinks** on the Internet.
-- **Edges are weighted**, in order to **represent the credibility** that Google assigns to links that come from certain websites, as opposed to others.
+- **Edges are weighted**, in order to **represent the probability** that a user goes from a certain site to another.
 - **Edges are directed**. This is because **hyperlinks are one-way connections**. ```Page A``` may link to ```Page B``` for example, but the reverse is not necessarily true.
 
 ## How the Model is Structured
@@ -51,18 +52,17 @@ A representation of the World Wide Web. This class is a *composition* of many ``
 
 #### Attributes of ```Internet```
 
-#### Methods of ```Internet```
+- ```dict: pages```: this dictionary maps the ```id``` attribute of each ```Page``` instance, to the ```Page``` instance itself.
 
 ### The ```Page``` Class
 
-A representation of a single web pages.
+A representation of a single web page.
 
 #### Attributes of ```Page```
 
 - ```str: id```: a unique name for the web page
-- ```float: importance```: a level of "importance" assigned to the web page. How this value is calculated by Google is currently outside the scope of this project.
-
-#### Methods of ```Page```
+- ```dict: neighbors```: this dictionary represents the other ```Page``` instances that can be reached using hyperlinks from this web page. The dictionary maps the ```id``` attribute of the other ```Page``` instances, to the other ```Page``` object.
+- ```float: link_weight``` is the weight that each edge from this ```Page``` instance carries. This attribute of the edge represents the probability a site visitor goes to any one of the neighboring sites linked by this ```Page``` instance. It is calculated as by dividing 100%, by the number of ```neighbors``` that page has. For example, if a ```Page``` has 2 ```neighbors``` that it links *towards* (aka its "outlinks"), then each of the ```weight``` values for those edges will be 0.50.
 
 ## Investigation
 
@@ -71,6 +71,16 @@ In this project, we will take a look at several problems that Google uses the Pa
 **The problems are as follows:**
 
 ### Calculating the PageRank Rating for each Page in a Network
+
+This problem is an application of an algorithm similar to the **Floyd-Warshall** algorithm
+
+We will implement a function that will take one **parameter**:
+
+- an ```Internet``` instance
+
+which will **return** a ```rankings``` array of pages, each element being a tuple of the ```Page.id```; as well as a ranking between 1-10, where 1 is the highest and 10 is the lowest..
+
+The **runtime complexity** of this algorithm is ```O(P^3)```, where P is the number of ```Page``` instances.
 
 ### Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page
 
@@ -102,4 +112,10 @@ The **runtime complexity** of this algorithm is ```O(E log P)```, where E is the
 
 ## Resources
 
-For more information explaining how PageRank works, and why you should care (as either a user or web developer), please checkout [this awesome article on Search Engine Land](https://searchengineland.com/what-is-google-pagerank-a-guide-for-searchers-webmasters-11068).
+For more information explaining how PageRank works, and why you should care (as either a businessperson or web developer), please checkout:
+
+1. [This awesome article on Search Engine Land](https://searchengineland.com/what-is-google-pagerank-a-guide-for-searchers-webmasters-11068), explaining PageRank for SEO's.
+
+2. [A 5 minute explanation of PageRank](https://youtu.be/-mUI1g5PZXI) from Matt Cutts, the former Head of the Web Spam team at Google.
+
+3. [Zach Star's explanation of PageRank](https://youtu.be/qxEkY8OScYY) uses adjaceny matrices to explain the algorithm. This explanation most closely resembles what is used in this project.
