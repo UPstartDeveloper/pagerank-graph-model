@@ -86,7 +86,7 @@ We will implement a function that will take one **parameter**:
 
 - an ```Internet``` instance
 
-which will **return** a ```rankings``` array of pages, each element being a tuple of the ```Page.id```; as well as a ranking between 1-10, where 1 is the highest and 10 is the lowest..
+which will **return** a ```rankings``` array of pages, each element being a tuple of the ```Page.id```; as well as a ranking between 1-10, where 1 is the highest and 10 is the lowest.
 
 The **runtime complexity** of this algorithm is ```O(P^3)```, where P is the number of ```Page``` instances.
 
