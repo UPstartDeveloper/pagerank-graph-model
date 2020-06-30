@@ -52,7 +52,7 @@ A representation of the World Wide Web. This class is a *composition* of many ``
 
 #### Attributes of ```Internet```
 
-- ```dict: pages```: this dictionary maps the ```id``` attribute of each ```Page``` instance, to the ```Page``` instance itself.
+- ```dict: pages```: this dictionary maps the ```page_id``` attribute of each ```Page``` instance, to the ```Page``` instance itself.
 
 #### Methods of ```Internet```
 
@@ -64,8 +64,8 @@ A representation of a single web page.
 
 #### Attributes of ```Page```
 
-- ```str: id```: a unique name for the web page
-- ```dict: neighbors```: this dictionary represents the other ```Page``` instances that can be reached using hyperlinks from this web page. The dictionary maps the ```id``` attribute of the other ```Page``` instances, to the other ```Page``` object.
+- ```str: page_id```: a unique name for the web page
+- ```dict: neighbors```: this dictionary represents the other ```Page``` instances that can be reached using hyperlinks from this web page. The dictionary maps the ```page_id``` attribute of the other ```Page``` instances, to the other ```Page``` object.
 - ```float: link_weight``` is the weight that each edge from this ```Page``` instance carries. This attribute of the edge represents the probability a site visitor goes to any one of the neighboring sites linked by this ```Page``` instance. It is calculated as by dividing 100%, by the number of ```neighbors``` that page has. For example, if a ```Page``` has 2 ```neighbors``` that it links *towards* (aka its "outlinks"), then each of the ```weight``` values for those edges will be 0.50.
 
 #### Methods of ```Page```
@@ -86,7 +86,7 @@ We will implement a function that will take one **parameter**:
 
 - an ```Internet``` instance
 
-which will **return** a ```rankings``` array of pages, each element being a tuple of the ```Page.id```; as well as a ranking between 1-10, where 1 is the highest and 10 is the lowest.
+which will **return** a ```rankings``` array of pages, each element being a tuple of the ```Page.page_id```; as well as a ranking between 1-10, where 1 is the highest and 10 is the lowest.
 
 The **runtime complexity** of this algorithm is ```O(P^3)```, where P is the number of ```Page``` instances.
 
