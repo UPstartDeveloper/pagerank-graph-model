@@ -13,7 +13,7 @@ Credits to Danny Sullivan, on Search Engine Land for the above image ([link to o
 2. [How the Model is Structured](#how-the-model-is-structured)
 3. [The ```Internet``` Class](#the-internet-class)
 4. [The ```Page``` Class](#the-page-class)
-5. [Investigation](#investigation)
+5. [Problems To Investigate](#problems-to-investigate)
     - [Calculating the PageRank Rating for each Page in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
     - [Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
     - [Finding the Shortest Path Required to Get From One Page to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
@@ -52,7 +52,7 @@ A representation of the World Wide Web. This class is a *composition* of many ``
 
 #### Attributes of ```Internet```
 
-- ```dict: pages```: this dictionary maps the ```id``` attribute of each ```Page``` instance, to the ```Page``` instance itself.
+- ```dict: pages```: this dictionary maps the ```page_id``` attribute of each ```Page``` instance, to the ```Page``` instance itself.
 
 #### Methods of ```Internet```
 
@@ -64,15 +64,15 @@ A representation of a single web page.
 
 #### Attributes of ```Page```
 
-- ```str: id```: a unique name for the web page
-- ```dict: neighbors```: this dictionary represents the other ```Page``` instances that can be reached using hyperlinks from this web page. The dictionary maps the ```id``` attribute of the other ```Page``` instances, to the other ```Page``` object.
+- ```str: page_id```: a unique name for the web page
+- ```dict: neighbors```: this dictionary represents the other ```Page``` instances that can be reached using hyperlinks from this web page. The dictionary maps the ```page_id``` attribute of the other ```Page``` instances, to the other ```Page``` object.
 - ```float: link_weight``` is the weight that each edge from this ```Page``` instance carries. This attribute of the edge represents the probability a site visitor goes to any one of the neighboring sites linked by this ```Page``` instance. It is calculated as by dividing 100%, by the number of ```neighbors``` that page has. For example, if a ```Page``` has 2 ```neighbors``` that it links *towards* (aka its "outlinks"), then each of the ```weight``` values for those edges will be 0.50.
 
 #### Methods of ```Page```
 
 *This section currently under construction*.
 
-## Investigation
+## Problems To Investigate
 
 In this project, we will take a look at several problems that Google uses the PageRank algorithm to solve, and modelling their solutions in code based upon the Graph ADT.
 
@@ -86,7 +86,7 @@ We will implement a function that will take one **parameter**:
 
 - an ```Internet``` instance
 
-which will **return** a ```rankings``` array of pages, each element being a tuple of the ```Page.id```; as well as a ranking between 1-10, where 1 is the highest and 10 is the lowest..
+which will **return** a ```rankings``` array of pages, each element being a tuple of the ```Page.page_id```; as well as a ranking between 1-10, where 1 is the highest and 10 is the lowest.
 
 The **runtime complexity** of this algorithm is ```O(P^3)```, where P is the number of ```Page``` instances.
 

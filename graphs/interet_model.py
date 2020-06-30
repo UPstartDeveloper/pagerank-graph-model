@@ -2,7 +2,8 @@ class Page:
     """
     Representation of a single web page and its linked pages.
     """
-    pass
+    def __init(self, id):
+        self.page_id = id
 
 class Internet:
     """
