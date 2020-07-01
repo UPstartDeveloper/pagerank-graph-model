@@ -81,38 +81,38 @@ class Internet:
         '''Return a list of all Page instances.'''
         return list(self.pages.values())
 
-    def rank_pages(self):
+    """What's the PageRank rating of each page?"""
+
+    def compute_inlink_values(self):
+        """Return a dict of the total endorsement given
+           to each Page.
+
         """
-        Return the PageRank rating for each page.
-        """
-        # create a top-level dictionary of page rankings
-        outlinks = dict()
-        all_page_ids = list(self.pages.keys())
-        # set default values - either 0 (for a Page to itself) or infinity
-        for page1 in all_page_ids:
-            outlinks[page1] = dict()
-            for page2 in all_page_ids:
-                outlinks[page1][page2] = 0
-            outlinks[page1][page1] = 0
-        # add all outlinks to the dictionary
-        all_page_objs = self.get_pages()
-        for page in all_page_objs:
-            linked_pages = page.get_neighbors()
-            for neighbor in linked_pages:
-                outlinks[page.get_id()][neighbor.get_id()] = page.link_weight
         # compute how much endorsement each Page got
+        all_page_ids = list(self.pages.keys())
         inlinks = dict()
-        for page_id1 in outlinks:
+        for page_id1 in all_page_ids:
             endorsements = list()
-            for page_id2 in outlinks:
+            for page_id2 in all_page_ids:
                 # use outlinks to see endorsements from other pages
-                endorsement_value = outlinks[page_id2][page_id1]
+                if page_id1 == page_id2:
+                    # page cannot endorse itself
+                    endorsement_value = 0
+                else:
+                    endorsement_value = self.pages[page_id2].link_weight
                 endorsements.append(endorsement_value)
             inlinks[page_id1] = endorsements
         # compute total endorsement give to each page
         for page in inlinks:
             total_endorsement = sum(inlinks[page])
             inlinks[page] = total_endorsement
+        return inlinks
+
+    def sort_pages_by_inlinks(self, inlinks):
+        """Return a list of Pages sorted from 
+           greatest to least total endorsement values.
+
+        """
         # rank all the Pages
         highest_rank_values = sorted(inlinks.values())
         highest_rank_pages = list()
@@ -125,6 +125,13 @@ class Internet:
                     highest_rank_pages.append(page)
                     # remove the value from the list
                     highest_rank_values.remove(highest_val)
+        return highest_rank_pages
+
+    def bucket_ranked_pages(self, highest_rank_pages):
+        """Return a list of tuples for each Page,
+           along with its PageRank rating.
+
+        """
         # convert to list of PageRank ratings
         rankings = list()
         # store variables for number of pages to rank, and 
@@ -140,8 +147,19 @@ class Internet:
             for index, page in enumerate(highest_rank_pages):
                 rating = int(index / bucket_len) + 1
                 rankings.append((page, rating))
+        return rankings
 
-        return outlinks, inlinks, rankings
+    def rank_pages(self):
+        """
+        Return the PageRank rating for each page.
+        """
+        # compute how much endorsement each Page got
+        inlinks = self.compute_inlink_values()
+        # rank all the Pages
+        highest_rank_pages = self.sort_pages_by_inlinks(inlinks)
+        # convert to list of PageRank ratings
+        rankings = self.bucket_ranked_pages(highest_rank_pages)
+        return rankings
 
 
 if __name__ == "__main__":
@@ -167,9 +185,8 @@ if __name__ == "__main__":
     internet.add_page(pageC)
     internet.add_page(pageD)
     # D: Test Algorithm
-    outlinks, inlinks, rankings = internet.rank_pages()
-    print(f'Outlinks: {outlinks}')
-    print(f'Inlinks: {inlinks}')
+    rankings = internet.rank_pages()
+    # print(f'Inlinks: {inlinks}')
     print(f'Final rankings: {rankings}')
 
 
