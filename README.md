@@ -80,7 +80,7 @@ In this project, we will take a look at several problems that Google uses the Pa
 
 ### Calculating the PageRank Rating for each Page in a Network
 
-This problem is an application of an algorithm similar to the **Floyd-Warshall** algorithm
+This problem is an application of an algorithm similar to the **Floyd-Warshall** algorithm.
 
 We will implement a function that will take one **parameter**:
 
