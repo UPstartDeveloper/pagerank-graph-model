@@ -1,14 +1,14 @@
 import unittest
-from internet_graph import Page, Internet
+from internet_graph import PageVertex, InternetGraph
 import file_reader
 
 
-class TestInternetSmallInput(unittest.TestCase):
+class TestInternetGraphSmallInput(unittest.TestCase):
     """
-    Test suite for datasets of under 30 Pages.
+    Test suite for datasets of under 30 PageVertexs.
     """
     def test_rank_pages_small(self):
-        '''Test the PageRank ratings given for test input file.'''
+        '''Test the PageVertexRank ratings given for test input file.'''
         internet = file_reader.read_graph_from_file(
             'test_files/small_input.txt'
         )

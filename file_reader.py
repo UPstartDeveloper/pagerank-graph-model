@@ -1,4 +1,4 @@
-from internet_graph import Page, Internet
+from internet_graph import PageVertex, InternetGraph
 
 # Credit for this script goes to:
 # https://github.com/UPstartDeveloper/Graph-ADT/blob/master/util/file_reader.py
@@ -6,22 +6,22 @@ from internet_graph import Page, Internet
 
 def read_graph_from_file(filename):
     """Read in data from the specified filename,
-       and returns an Internet object corresponding
+       and returns an InternetGraph object corresponding
        to that data.
 
        Parameters:
        filename (str): The relative path of the file to be processed
 
        Returns:
-       Internet: A directed, weighted graph containing the specified
-                 Pages. Not necessarily connected.
+       InternetGraph: A directed, weighted graph containing the specified
+                 PageVertexs. Not necessarily connected.
 
     """
         # Open the file
     with open(filename) as f:
         # read in all lines from the file, without the '\n' characters
         lines = [line[:-1] for line in f.readlines()]
-        internet = Internet()
+        internet = InternetGraph()
         # Use the 1st line to add the vertices
         page_ids = lines[0].split(',')
         for p_id in page_ids:
