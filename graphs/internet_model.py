@@ -71,7 +71,8 @@ class Page:
 class Internet:
     """
     Represents a composition of all Page instances
-    in the network.
+    in the network. Is a directed, weighted, and 
+    not neccessarily connected graph.
 
     Notes on PageRank algorithm, from Zach Starr video:
     - the weight of each edge = 1 / # neighbors of a Page
@@ -90,12 +91,12 @@ class Internet:
         # map each page_id --> Page obj
         self.pages = dict()
 
-    def add_page(self, page_obj):
+    def add_page(self, page_id):
         """Add a Page instance into the collection
            of all Page instances.
         
         """
-        self.pages[page_obj.get_id()] = page_obj
+        self.pages[page_id] = Page(page_id)
 
     def get_pages(self):
         '''Return a list of all Page instances.'''
@@ -111,6 +112,14 @@ class Internet:
         if page_id not in self.pages:
             raise KeyError('Page could not be found.')
         return self.pages[page_id]
+
+    def link_pages(self, page1_id, page2_id):
+        '''Adds a link from Page 1 to Page 2.'''
+        page1_obj, page2_obj = (
+            self.get_page(page1_id),
+            self.get_page(page2_id)
+        )
+        page1_obj.add_link(page2_obj)
 
     def __str__(self):
         '''Return the Pages in this instance.'''
