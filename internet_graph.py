@@ -1,7 +1,6 @@
 import math
 import numpy as np
 from collections import deque
-from utils import file_reader
 
 
 class Page:
@@ -318,11 +317,22 @@ class Internet:
 if __name__ == "__main__":
     # Runner Script
     # A: instaniate the Pages and Graph
-    internet = (
-        file_reader.read_graph_from_file(
-            'test_files/small_input.txt'
-        )
-    )
+    pageA = Page('A')
+    pageB = Page('B')
+    pageC = Page('C')
+    pageD = Page('D')
+    pageA.add_link(pageB)
+    pageB.add_link(pageC) 
+    pageB.add_link(pageD)
+    pageC.add_link(pageA)
+    pageC.add_link(pageD)
+    pageD.add_link(pageA)
+    pageD.add_link(pageB)
+    internet = Internet()
+    internet.add_page_by_obj(pageA)
+    internet.add_page_by_obj(pageB)
+    internet.add_page_by_obj(pageC)
+    internet.add_page_by_obj(pageD)
     # B: Test PageRank
     rankings = internet.rank_pages()
     print(f'Final rankings: {rankings}')

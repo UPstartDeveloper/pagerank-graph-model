@@ -1,4 +1,4 @@
-from internet_model import Page, Internet
+from internet_graph import Page, Internet
 
 # Credit for this script goes to:
 # https://github.com/UPstartDeveloper/Graph-ADT/blob/master/util/file_reader.py
