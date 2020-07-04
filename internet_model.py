@@ -1,6 +1,7 @@
 import math
 import numpy as np
 from collections import deque
+from utils import file_reader
 
 
 class Page:
@@ -91,12 +92,19 @@ class Internet:
         # map each page_id --> Page obj
         self.pages = dict()
 
-    def add_page(self, page_id):
+    def add_page_by_id(self, page_id):
+        """Instaniate a new Page, then add to
+           the Internet.
+        
+        """
+        self.pages[page_id] = Page(page_id)
+
+    def add_page_by_obj(self, page):
         """Add a Page instance into the collection
            of all Page instances.
         
         """
-        self.pages[page_id] = Page(page_id)
+        self.pages[page.get_id()] = page
 
     def get_pages(self):
         '''Return a list of all Page instances.'''
@@ -110,7 +118,7 @@ class Internet:
         '''Returns a Page with matching page_id.'''
         # raise error, or return object
         if page_id not in self.pages:
-            raise KeyError('Page could not be found.')
+            raise KeyError(f'Page {page_id} not found.')
         return self.pages[page_id]
 
     def link_pages(self, page1_id, page2_id):
@@ -227,7 +235,7 @@ class Internet:
         """
         # check to make sure we have a valid start_id
         if not self.contains_page(start_id):
-            raise KeyError("Page not found in the Internet!")
+            raise KeyError(f"Page {start_id} not found in the Internet!")
         # Store the starting page in a variable 
         start_page_obj = self.get_page(start_id)
         # Keep a count of steps taken from start so far
@@ -308,34 +316,21 @@ class Internet:
 
 
 if __name__ == "__main__":
-    # Test Page Ranking Function on Sample Input (Runner Script)
-    # A: instaniate the Pages
-    pageA = Page('A')
-    pageB = Page('B')
-    pageC = Page('C')
-    pageD = Page('D')
-    # B: add links between Pages
-    pageA.add_link(pageB)
-    pageB.add_link(pageC) 
-    pageB.add_link(pageD)
-    pageC.add_link(pageA)
-    pageC.add_link(pageD)
-    pageD.add_link(pageA)
-    pageD.add_link(pageB)
-    # C: Add Pages to an Internet
-    internet = Internet()
-    internet.add_page(pageA)
-    internet.add_page(pageB)
-    internet.add_page(pageC)
-    internet.add_page(pageD)
-    # D: Test Algorithms
+    # Runner Script
+    # A: instaniate the Pages and Graph
+    internet = (
+        file_reader.read_graph_from_file(
+            'test_files/small_input.txt'
+        )
+    )
+    # B: Test PageRank
     rankings = internet.rank_pages()
     print(f'Final rankings: {rankings}')
-    # B: Seeing What Pages Can be Reached from 'B'
+    # C: Seeing What Pages Can be Reached from 'B'
     neighbors = internet.find_pages_n_away('B', 2)
     print('Shortest distance neighbors 2 links away ' +
           f'from B: {neighbors}')
-    # Finding Length of Shortest Path
+    # D: Finding Length of Shortest Path
     b_to_d = internet.find_shortest_path('B', 'D')
     print(f'Minimum weight of path from B to D: {b_to_d}')
 

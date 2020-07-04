@@ -1,4 +1,4 @@
-from graphs.internet_model import Page, Internet
+from internet_model import Page, Internet
 
 # Credit for this script goes to:
 # https://github.com/UPstartDeveloper/Graph-ADT/blob/master/util/file_reader.py
@@ -22,13 +22,13 @@ def read_graph_from_file(filename):
         # read in all lines from the file, without the '\n' characters
         lines = [line[:-1] for line in f.readlines()]
         internet = Internet()
-        # Use the second line to add the vertices to the graph
-        page_ids = lines[1].split(',')
+        # Use the 1st line to add the vertices
+        page_ids = lines[0].split(',')
         for p_id in page_ids:
-            internet.add_page(p_id)
-        # Use the 3rd+ line to add the edges to the graph
+            internet.add_page_by_id(p_id)
+        # Use the 2nd+ line to add the edges
         for index, line in enumerate(lines):
-            if index >= 2:
+            if index >= 1:
                 # get ids of the vertices
                 ids = line[1:4].split(',')
                 # add an edge from the first vertex to the second
@@ -38,6 +38,6 @@ def read_graph_from_file(filename):
         return internet
 
 if __name__ == '__main__':
-    # filename = 'test.txt'
-    # graph = read_graph_from_file(filename)
-    # print(graph)
+    filename = 'test_files/small_input.txt'
+    internet = read_graph_from_file(filename)
+    print(internet)
