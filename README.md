@@ -137,6 +137,10 @@ This section will report on *how solvable* the problems in this investigation be
 
 3. Shortest Path-Finding
 
+    This problem is also not solvable as the size of the Internet increases asymptotically, for the same reason as above: when dealing with trillions of web pages, it is simply better to use search engines and applications in order to quickly get between different web pages of interest.
+
+    The function used to solve this problem is ```Internet.find_shortest_path```, which implements Dijkstra's Shortest Path algorithm. This algorithm is usually ```O(P log P)```. However, because an array is used instead of binary min heap in this implementation, the runtime is currently ```O(P^2)```. This would not be an efficient function to use on inputs of size 30 or more.
+
 ## Resources
 
 For more information explaining how PageRank works, and why you should care (as either a businessperson or web developer), please checkout:

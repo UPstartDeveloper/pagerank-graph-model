@@ -313,32 +313,41 @@ class Internet:
         Use Dijkstra's Algorithm to return the total weight
         of the shortest path from a start page 
         to a destination.
+
+        Complexity Analysis:
+        The runtime of this method asymptotically increases quadratically 
+        with respect to P, the number of Pages. The longest step is finding 
+        the minimum Page to add, since an ordinary array is currently used to
+        simulate using a binary min heap.
+
+        Overall, the runtime of this method is O(P^2).
+        
         """
         # Check that both start and target Pages valid
-        if self.contains_page(start_id) is False:
+        if self.contains_page(start_id) is False:  # O(P)
             raise KeyError(f'{start_id} not found in Internet!')
-        elif self.contains_page(target_id) is False:
+        elif self.contains_page(target_id) is False:  # O(P)
             raise KeyError(f'{target_id} not found in Internet!')
         # A: initialize all page distances to INFINITY away
-        page_weight = dict()
-        for page_obj in self.pages.values():
+        page_weight = dict()  # O(1)
+        for page_obj in self.pages.values():  # P iterations
             page_weight[page_obj] = float('inf')
         # B: Calculate Shortest Paths from Start Page
-        start_page = self.pages[start_id]
+        start_page = self.pages[start_id]  # O(1)
         page_weight[start_page] = 0
-        while len(list(page_weight.items())) > 0:
+        while len(list(page_weight.items())) > 0:  # P iterations
             # Get the minimum-distance remaining Page
-            min_distance = min(list(page_weight.values()))
+            min_distance = min(list(page_weight.values()))  # O(P)
             min_page = None
             # find the minumum-weighted Page
-            for page in page_weight:
+            for page in page_weight:  # P iterations
                 if page_weight[page] == min_distance:
                     min_page = page
             # If target found, return its distance
             if min_page.page_id == target_id:
                 return page_weight[min_page]
             # B: List the Page's neighbors
-            neighbor_weights = min_page.get_neighbors_with_weights()
+            neighbor_weights = min_page.get_neighbors_with_weights()  # O(L)
             # C: Update the Page's neighbors
             for neighbor, weight in neighbor_weights:
                 if neighbor in page_weight:
