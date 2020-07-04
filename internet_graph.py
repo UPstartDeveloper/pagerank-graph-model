@@ -139,11 +139,22 @@ class Internet:
         """Return a dict of the total endorsement given
            to each Page.
 
+           Complexity Analysis:
+           The runtime of this implementation scales quadratically
+           with the size of P, the number of Pages in the Internet.
+
+           It also scales with the size of L, the number of links
+           in the Internet, because that is the sum total of addition
+           operations we will use to calculate the total endorsement 
+           received by each Page.
+           
+           This runtime can be expressed in Big O as O(P^2 + L)
+
         """
         # compute how much endorsement each Page got
-        all_page_ids = list(self.pages.keys())
+        all_page_ids = list(self.pages.keys())  # O(P)
         inlinks = dict()
-        for page_id1 in all_page_ids:
+        for page_id1 in all_page_ids:  # P^2 iterations
             endorsements = list()
             for page_id2 in all_page_ids:
                 # use outlinks to see endorsements from others
@@ -155,8 +166,8 @@ class Internet:
                 endorsements.append(endorsement_value)
             inlinks[page_id1] = endorsements
         # compute total endorsement give to each page
-        for page in inlinks:
-            total_endorsement = sum(inlinks[page])
+        for page in inlinks:  # P iterations
+            total_endorsement = sum(inlinks[page])  # O(L)
             inlinks[page] = total_endorsement
         return inlinks
 
@@ -164,53 +175,73 @@ class Internet:
         """Return a list of Pages sorted from 
            greatest to least total endorsement values.
 
+           Complexity Analysis:
+           The runtime of this method scales asymptotically 
+           the the time taken to sort the pages from greatest to
+           least. Since this step of the process is quadratically 
+           dependent on P, the number of Pages, this can be expressed 
+           as O(P^2).
+
         """
         # rank all the Pages
-        highest_rank_values = sorted(inlinks.values())
+        highest_rank_values = sorted(inlinks.values())  # O(P log P)
         highest_rank_pages = list()
         # sort pages from greatest to least
-        while len(highest_rank_values) > 0:
-            highest_val = max(highest_rank_values)
+        while len(highest_rank_values) > 0:  # P iterations
+            highest_val = max(highest_rank_values)  # O(P)
             # find the page matching the next highest value
-            for page in inlinks:
+            for page in inlinks:  # P iterations
                 if inlinks[page] == highest_val:
                     highest_rank_pages.append(page)
                     # remove the value from the list
-                    highest_rank_values.remove(highest_val)
+                    highest_rank_values.remove(highest_val)  # O(P)
         return highest_rank_pages
 
     def bucket_ranked_pages(self, highest_rank_pages):
         """Return a list of tuples for each Page,
            along with its PageRank rating.
 
+           Complexity Analysis:
+           The runtime of this method scales linearly with the size
+           of P, as P grows asympotitcally larger. Therefore, the Big O
+           notation of the runtime is O(P).
+
         """
         # convert to list of PageRank ratings
         rankings = list()
         # store variables for number of pages to rank, and 
         # ratings we can give out (scale 1-10)
-        num_rankings, num_possible_ranks = len(highest_rank_pages), 10
+        num_rankings, num_possible_ranks = len(highest_rank_pages), 10  # O(P)
         if num_rankings < num_possible_ranks:
             # each PR up to 10 is each to the index
-            for index, page in enumerate(highest_rank_pages):
+            for index, page in enumerate(highest_rank_pages):  # O(P)
                 rankings.append((page, index + 1))
         else:
             # each page is assigned a PR according to buckets
-            bucket_len = math.ceil(num_rankings / num_possible_ranks)
-            for index, page in enumerate(highest_rank_pages):
+            bucket_len = math.ceil(num_rankings / num_possible_ranks)  # O(1)
+            for index, page in enumerate(highest_rank_pages):  # P iterations
                 rating = int(index / bucket_len) + 1
-                rankings.append((page, rating))
+                rankings.append((page, rating))  # O(P) amortized
         return rankings
 
     def rank_pages(self):
         """
         Return the PageRank rating for each page.
+
+        Complexity Analysis:
+        The runtime of this method grows in relation to P and L
+        asymptotically, which represent the number of Pages and the 
+        total number of links in the Internet respectively. The Big O
+        notation for the combined runtime of the three helper methods
+        would be O(P^2 + L).
+        
         """
         # compute how much endorsement each Page got
-        inlinks = self.compute_inlink_values()
+        inlinks = self.compute_inlink_values()  # O(P^2 + L)
         # rank all the Pages
-        highest_rank_pages = self.sort_pages_by_inlinks(inlinks)
+        highest_rank_pages = self.sort_pages_by_inlinks(inlinks)  # O(P^2)
         # convert to list of PageRank ratings
-        rankings = self.bucket_ranked_pages(highest_rank_pages)
+        rankings = self.bucket_ranked_pages(highest_rank_pages)  # O(P)
         return rankings
 
     """What pages can I reach N links away from this page?"""

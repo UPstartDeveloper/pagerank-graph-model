@@ -17,7 +17,8 @@ Credits to Danny Sullivan, on Search Engine Land for the above image ([link to o
     - [Calculating the PageRank Rating for each Page in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
     - [Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
     - [Finding the Shortest Path Required to Get From One Page to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
-6. [Resources](#resources)
+6. [Scale](#scale)
+7. [Resources](#resources)
 
 ## How Graph Theory Relates to PageRank
 
@@ -117,6 +118,24 @@ We will implement a function that takes in three **parameters**:
 which will **return** a ```path``` array of pages to reach from the start to the target.
 
 The **runtime complexity** of this algorithm is ```O(E log P)```, where E is the number of links in our ```Internet```, and P is the number of ```Page``` instances.
+
+## Scale
+
+This section will report on *how solvable* the problems in this investigation become, as well as *how efficiently* the algorithms currently being used to solve them become as the size of the input grows asymptotically.
+
+1. PageRank
+
+    PageRank in its full complexity, appears to still work as we add more and more web pages and hyperlinks to the Web. According to [Search Engine Land](https://searchengineland.com/googles-search-indexes-hits-130-trillion-pages-documents-263378), as of 2016 Google has indexed over 130 trillion web pages. Although Google does not publicly announce how PageRank's implementation has changed over the years, [this article on Search Engine Roundtable](https://www.seroundtable.com/google-still-uses-pagerank-29056.html) reports that John Mueller, a Webmaster Trends Analyst at Google, stated in February that the company still uses the algorithm to rank pages *internally* in 2020.
+
+    Currently the method used to perform PageRank, ```Internet.rank_pages```, runs in ```O(P^2 + L)```, where P is the number of Pages and L is the number of links in the Internet. This is mainly due to the runtime used to find the inlinks leading to each ```Page``` - this is performed by a helper function ```Internet.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
+
+2. Finding Neighbors n Links Away
+
+    dd
+
+3. Shortest Path-Finding
+
+    dd
 
 ## Resources
 
