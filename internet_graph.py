@@ -234,7 +234,7 @@ class Internet:
         total number of links in the Internet respectively. The Big O
         notation for the combined runtime of the three helper methods
         would be O(P^2 + L).
-        
+
         """
         # compute how much endorsement each Page got
         inlinks = self.compute_inlink_values()  # O(P^2 + L)
@@ -260,7 +260,13 @@ class Internet:
                                 start vertex we want
 
         Returns:
-        List<str>: All Page ids that are 'link_distance' away 
+        List<str>: All Page ids that are 'link_distance' away
+
+        Complexity Analysis:
+        This function attempts to process each Page, by way of 
+        each link in the Internet. It scales in linear proportion to 
+        P and L as they grow asymptotically larger, therefore
+        the Big O notation of this function is O(P + L).
 
         """
         # check to make sure we have a valid start_id

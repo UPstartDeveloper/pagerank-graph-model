@@ -127,15 +127,15 @@ This section will report on *how solvable* the problems in this investigation be
 
     PageRank in its full complexity, appears to still work as we add more and more web pages and hyperlinks to the Web. According to [Search Engine Land](https://searchengineland.com/googles-search-indexes-hits-130-trillion-pages-documents-263378), as of 2016 Google has indexed over 130 trillion web pages. Although Google does not publicly announce how PageRank's implementation has changed over the years, [this article on Search Engine Roundtable](https://www.seroundtable.com/google-still-uses-pagerank-29056.html) reports that John Mueller, a Webmaster Trends Analyst at Google, stated in February that the company still uses the algorithm to rank pages *internally* in 2020.
 
-    Currently the method used to perform PageRank, ```Internet.rank_pages```, runs in ```O(P^2 + L)```, where P is the number of Pages and L is the number of links in the Internet. This is mainly due to the runtime used to find the inlinks leading to each ```Page``` - this is performed by a helper function ```Internet.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
+    Currently the method used to perform PageRank, ```Internet.rank_pages```, runs in ```O(P^2 + L)```, where ```P = number of Pages``` and ```L = number of links``` in the Internet. This is mainly due to the runtime used to find the inlinks leading to each ```Page``` - this is performed by a helper function ```Internet.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
 
 2. Finding Neighbors n Links Away
 
-    dd
+    This problem is not solvable as the size of the input scales asymptotically. The Internet as we know it today is simoly too large to get around simply through clicking on links. Be grateful for search engines!
+
+    The function used to solve this problem is ```Internet.find_pages_n_away```. This function implements the Breadth-first Search algorithm for up to n, the number of links specified to traverse in the graph. Therefore in worst case, the runtime of the function is ```O(P + L)```, where ```P = number of Pages``` and ```L = number of links``` in the overall graph. For small inputs and inputs around 30, this is an efficient algorithm. However, on the true scale of the Internet, which is trillions of pages, it is not efficient.
 
 3. Shortest Path-Finding
-
-    dd
 
 ## Resources
 
