@@ -112,6 +112,10 @@ class Internet:
             raise KeyError('Page could not be found.')
         return self.pages[page_id]
 
+    def __str__(self):
+        '''Return the Pages in this instance.'''
+        return f'Internet with Pages: {self.get_pages()}'
+
 
     """What's the PageRank rating of each page?"""
 
@@ -315,9 +319,8 @@ if __name__ == "__main__":
     internet.add_page(pageB)
     internet.add_page(pageC)
     internet.add_page(pageD)
-    # D: Test Algorithm
+    # D: Test Algorithms
     rankings = internet.rank_pages()
-    # print(f'Inlinks: {inlinks}')
     print(f'Final rankings: {rankings}')
     # B: Seeing What Pages Can be Reached from 'B'
     neighbors = internet.find_pages_n_away('B', 2)
