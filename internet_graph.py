@@ -74,7 +74,7 @@ class InternetGraph:
     in the network. Is a directed, weighted, and 
     not neccessarily connected graph.
 
-    Notes on PageVertexRank algorithm, from Zach Starr video:
+    Notes on PageRank algorithm, from Zach Starr video:
     - the weight of each edge = 1 / # neighbors of a PageVertex
     - each page only knows about the links it gives out,
        and not endorsements that link to it
@@ -133,7 +133,7 @@ class InternetGraph:
         return f'InternetGraph with PageVertexs: {self.get_pages()}'
 
 
-    """What's the PageVertexRank rating of each page?"""
+    """What's the PageRank rating of each page?"""
 
     def compute_inlink_values(self):
         """Return a dict of the total endorsement given
@@ -199,7 +199,7 @@ class InternetGraph:
 
     def bucket_ranked_pages(self, highest_rank_pages):
         """Return a list of tuples for each PageVertex,
-           along with its PageVertexRank rating.
+           along with its PageRank rating.
 
            Complexity Analysis:
            The runtime of this method scales linearly with the size
@@ -207,7 +207,7 @@ class InternetGraph:
            notation of the runtime is O(P).
 
         """
-        # convert to list of PageVertexRank ratings
+        # convert to list of PageRank ratings
         rankings = list()
         # store variables for number of pages to rank, and 
         # ratings we can give out (scale 1-10)
@@ -226,7 +226,7 @@ class InternetGraph:
 
     def rank_pages(self):
         """
-        Return the PageVertexRank rating for each page.
+        Return the PageRank rating for each page.
 
         Complexity Analysis:
         The runtime of this method grows in relation to P and L
@@ -240,7 +240,7 @@ class InternetGraph:
         inlinks = self.compute_inlink_values()  # O(P^2 + L)
         # rank all the PageVertexs
         highest_rank_pages = self.sort_pages_by_inlinks(inlinks)  # O(P^2)
-        # convert to list of PageVertexRank ratings
+        # convert to list of PageRank ratings
         rankings = self.bucket_ranked_pages(highest_rank_pages)  # O(P)
         return rankings
 
@@ -379,7 +379,7 @@ if __name__ == "__main__":
     internet.add_page_by_obj(pageB)
     internet.add_page_by_obj(pageC)
     internet.add_page_by_obj(pageD)
-    # B: Test PageVertexRank
+    # B: Test PageRank
     rankings = internet.rank_pages()
     print(f'Final rankings: {rankings}')
     # C: Seeing What PageVertexs Can be Reached from 'B'

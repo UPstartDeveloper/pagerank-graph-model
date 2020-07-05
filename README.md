@@ -1,26 +1,26 @@
-# PageVertexRank Graph Model
+# PageRank Graph Model
 
 A model for understanding Google's PangeRank algorithm, based upon the concepts of Graph Theory.
 
-PageVertexRank is the algorithm Google uses to sift through the absurd amounts of web pages out there, so that in search results you and I see only the most important and useful information related to our search.
+PageRank is the algorithm Google uses to sift through the absurd amounts of web pages out there, so that in search results you and I see only the most important and useful information related to our search.
 
 ![Google 'G' on a chalkboard with computer science on it](https://i.postimg.cc/FHcdKh7y/Screen-Shot-2020-06-26-at-5-59-40-PM.png)
 Credits to Danny Sullivan, on Search Engine Land for the above image ([link to original site](https://searchengineland.com/what-is-google-pagerank-a-guide-for-searchers-webmasters-11068)).
 
 ## Table of Contents
 
-1. [How Graph Theory Relates to PageVertexRank](#how-graph-theory-relates-to-pagerank)
+1. [How Graph Theory Relates to PageRank](#how-graph-theory-relates-to-pagerank)
 2. [How the Model is Structured](#how-the-model-is-structured)
 3. [The ```InternetGraph``` Class](#the-internet-class)
 4. [The ```PageVertex``` Class](#the-page-class)
 5. [Problems To Investigate](#problems-to-investigate)
-    - [Calculating the PageVertexRank Rating for each PageVertex in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
+    - [Calculating the PageRank Rating for each PageVertex in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
     - [Determining Which PageVertexs Can Be Reached After Clicking N links Away from a Starting PageVertex](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
     - [Finding the Shortest Path Required to Get From One PageVertex to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
 6. [Scale](#scale)
 7. [Resources](#resources)
 
-## How Graph Theory Relates to PageVertexRank
+## How Graph Theory Relates to PageRank
 
 If there's two things that the InternetGraph does really well, it's:
 
@@ -75,11 +75,11 @@ A representation of a single web page.
 
 ## Problems To Investigate
 
-In this project, we will take a look at several problems that Google uses the PageVertexRank algorithm to solve, and modelling their solutions in code based upon the Graph ADT.
+In this project, we will take a look at several problems that Google uses the PageRank algorithm to solve, and modelling their solutions in code based upon the Graph ADT.
 
 **The problems are as follows:**
 
-### Calculating the PageVertexRank Rating for each PageVertex in a Network
+### Calculating the PageRank Rating for each PageVertex in a Network
 
 This problem is an application of an algorithm similar to the **Floyd-Warshall** algorithm.
 
@@ -123,11 +123,11 @@ The **runtime complexity** of this algorithm is ```O(E log P)```, where E is the
 
 This section will report on *how solvable* the problems in this investigation become, as well as *how efficiently* the algorithms currently being used to solve them become as the size of the input grows asymptotically.
 
-1. PageVertexRank
+1. PageRank
 
-    PageVertexRank in its full complexity, appears to still work as we add more and more web pages and hyperlinks to the Web. According to [Search Engine Land](https://searchengineland.com/googles-search-indexes-hits-130-trillion-pages-documents-263378), as of 2016 Google has indexed over 130 trillion web pages. Although Google does not publicly announce how PageVertexRank's implementation has changed over the years, [this article on Search Engine Roundtable](https://www.seroundtable.com/google-still-uses-pagerank-29056.html) reports that John Mueller, a Webmaster Trends Analyst at Google, stated in February that the company still uses the algorithm to rank pages *internally* in 2020.
+    PageRank in its full complexity, appears to still work as we add more and more web pages and hyperlinks to the Web. According to [Search Engine Land](https://searchengineland.com/googles-search-indexes-hits-130-trillion-pages-documents-263378), as of 2016 Google has indexed over 130 trillion web pages. Although Google does not publicly announce how PageRank's implementation has changed over the years, [this article on Search Engine Roundtable](https://www.seroundtable.com/google-still-uses-pagerank-29056.html) reports that John Mueller, a Webmaster Trends Analyst at Google, stated in February that the company still uses the algorithm to rank pages *internally* in 2020.
 
-    Currently the method used to perform PageVertexRank, ```InternetGraph.rank_pages```, runs in ```O(P^2 + L)```, where ```P = number of PageVertexs``` and ```L = number of links``` in the InternetGraph. This is mainly due to the runtime used to find the inlinks leading to each ```PageVertex``` - this is performed by a helper function ```InternetGraph.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
+    Currently the method used to perform PageRank, ```InternetGraph.rank_pages```, runs in ```O(P^2 + L)```, where ```P = number of PageVertexs``` and ```L = number of links``` in the InternetGraph. This is mainly due to the runtime used to find the inlinks leading to each ```PageVertex``` - this is performed by a helper function ```InternetGraph.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
 
 2. Finding Neighbors n Links Away
 
@@ -143,10 +143,10 @@ This section will report on *how solvable* the problems in this investigation be
 
 ## Resources
 
-For more information explaining how PageVertexRank works, and why you should care (as either a businessperson or web developer), please checkout:
+For more information explaining how PageRank works, and why you should care (as either a businessperson or web developer), please checkout:
 
-1. [This awesome article on Search Engine Land](https://searchengineland.com/what-is-google-pagerank-a-guide-for-searchers-webmasters-11068), explaining PageVertexRank for SEO's.
+1. [This awesome article on Search Engine Land](https://searchengineland.com/what-is-google-pagerank-a-guide-for-searchers-webmasters-11068), explaining PageRank for SEO's.
 
-2. [A 5 minute explanation of PageVertexRank](https://youtu.be/-mUI1g5PZXI) from Matt Cutts, the former Head of the Web Spam team at Google.
+2. [A 5 minute explanation of PageRank](https://youtu.be/-mUI1g5PZXI) from Matt Cutts, the former Head of the Web Spam team at Google.
 
-3. [Zach Star's explanation of PageVertexRank](https://youtu.be/qxEkY8OScYY) uses adjaceny matrices to explain the algorithm. This explanation most closely resembles what is used in this project.
+3. [Zach Star's explanation of PageRank](https://youtu.be/qxEkY8OScYY) uses adjaceny matrices to explain the algorithm. This explanation most closely resembles what is used in this project.

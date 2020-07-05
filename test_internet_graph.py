@@ -8,7 +8,7 @@ class TestInternetGraphSmallInput(unittest.TestCase):
     Test suite for datasets of under 30 PageVertexs.
     """
     def test_rank_pages_small(self):
-        '''Test the PageVertexRank ratings given for test input file.'''
+        '''Test the PageRank ratings given for test input file.'''
         internet = file_reader.read_graph_from_file(
             'test_files/small_input.txt'
         )
