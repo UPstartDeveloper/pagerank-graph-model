@@ -8,7 +8,14 @@ class PageVertex:
     Representation of a single web page and its linked pages.
     """
     def __init__(self, id):
-        """Initialize attributes of a new PageVertex instance."""
+        """Initialize attributes of a new PageVertex instance.
+
+           Parameters:
+           id(str): unique identifier of the instance, e.g. 'A'
+
+           Returns: None
+
+        """
         self.page_id = id
         # map each linked page_id --> PageVertex obj
         self.neighbors = dict()
@@ -20,18 +27,32 @@ class PageVertex:
            instance to be the inverse of its number of
            neighbors.
 
+           Parameter: 
+           num_links(int): the number of outlinks of 
+                           this instance
+
+           Returns: None
+
         """
         if num_links is None:
           num_links = len(self.neighbors)
-        self.link_weight = 1 / num_links
+        self.link_weight = (1 / num_links)
+        return None
 
     def add_link(self, page):
-        '''Link another PageVertex from this instance.'''
+        """Link another PageVertex from this instance.
+           
+           Parameters:
+           page(PageVertex): the PageVertex object the
+                             outlink leads to
+        
+        """
         # recalculate the link weight
         num_links = 1 + len(self.neighbors)
         self.__set_link_weight(num_links)
         # add neighbor
         self.neighbors[page.get_id()] = page
+        return None
 
     def __str__(self):
         '''Output the PageVertex and its linked neighbors.'''
@@ -51,8 +72,7 @@ class PageVertex:
 
     def get_neighbors_with_weights(self):
         """Return the PageVertex instances that are linked by 
-           this instance, along with the weight of that
-           link
+           this instance, along with the weight of that link.
            
         """
         neighbors = self.get_neighbors()
@@ -64,7 +84,7 @@ class PageVertex:
         return neighbor_weights
 
     def get_id(self):
-        """Return the id of this vertex."""
+        '''Return the id of this vertex.'''
         return self.page_id
 
 
@@ -72,18 +92,7 @@ class InternetGraph:
     """
     Represents a composition of all PageVertex instances
     in the network. Is a directed, weighted, and 
-    not neccessarily connected graph.
-
-    Notes on PageRank algorithm, from Zach Starr video:
-    - the weight of each edge = 1 / # neighbors of a PageVertex
-    - each page only knows about the links it gives out,
-       and not endorsements that link to it
-    - using iteration we can create an adjacency matrix
-      to show
-      (in each column): the endorsements given out by each
-                        PageVertex, and
-      (in each row): we show the endorsements that each PageVertex
-                     receives
+    not neccessarily connected graph. 
 
     """
     def __init__(self):
@@ -94,39 +103,75 @@ class InternetGraph:
     def add_page_by_id(self, page_id):
         """Instaniate a new PageVertex, then add to
            the InternetGraph.
+
+           Parameters:
+           page_id(str): the id of the new PageVertex
+                         to be added
+
+           Returns: None
         
         """
         self.pages[page_id] = PageVertex(page_id)
+        return None
 
     def add_page_by_obj(self, page):
-        """Add a PageVertex instance into the collection
+        """Add a PageVertex instance into the dictionary
            of all PageVertex instances.
+
+           Parameters:
+           page(PageVertex): the PageVertex to be added
+
+           Returns: None
         
         """
         self.pages[page.get_id()] = page
+        return None
 
     def get_pages(self):
         '''Return a list of all PageVertex instances.'''
         return list(self.pages.values())
 
     def contains_page(self, page_id):
-        '''Returns True if a PageVertex exists with 'page_id'.'''
+        """Returns True if a PageVertex exists with 'page_id'.
+          
+           Parameters:
+           page_id(str): the id of the PageVertex being queried
+
+           Returns: bool: True only if the id is found in self.pages
+        
+        """
         return page_id in self.pages
 
     def get_page(self, page_id):
-        '''Returns a PageVertex with matching page_id.'''
+        """Returns a PageVertex with matching page_id.
+
+           Parameters:
+           page_id(str): the id of the PageVertex being queried
+
+           Returns: PageVertex instance, or else raises KeyError.
+        
+        """
         # raise error, or return object
         if page_id not in self.pages:
             raise KeyError(f'PageVertex {page_id} not found.')
         return self.pages[page_id]
 
     def link_pages(self, page1_id, page2_id):
-        '''Adds a link from PageVertex 1 to PageVertex 2.'''
+        """Adds a link from PageVertex 1 to PageVertex 2.
+
+           Parameters:
+           page1_id(str): the id of the PageVertex where the link originates
+           page2_id(str): the id of the PageVertex where the link ends
+
+           Returns: None
+        
+        """
         page1_obj, page2_obj = (
             self.get_page(page1_id),
             self.get_page(page2_id)
         )
         page1_obj.add_link(page2_obj)
+        return None
 
     def __str__(self):
         '''Return the PageVertexs in this instance.'''
@@ -138,6 +183,13 @@ class InternetGraph:
     def compute_inlink_values(self):
         """Return a dict of the total endorsement given
            to each PageVertex.
+
+           Parameters: None
+
+           Returns: 
+           dict: inlinks maps the page_id of every PageVertex in the
+                 InternetGraph, to the total numerical of the endorsements
+                 it receives from other pages
 
            Complexity Analysis:
            The runtime of this implementation scales quadratically
@@ -175,6 +227,14 @@ class InternetGraph:
         """Return a list of PageVertexs sorted from 
            greatest to least total endorsement values.
 
+           Parameters:
+           inlinks(dict): maps id of every PageVertex in the graph
+                          to the total numerical value of its inlinks
+
+           Returns:
+           List<str>: array of all PageVertex id's, sorted from greatest to
+                 least total endorsement value
+
            Complexity Analysis:
            The runtime of this method scales asymptotically 
            the the time taken to sort the pages from greatest to
@@ -200,6 +260,19 @@ class InternetGraph:
     def bucket_ranked_pages(self, highest_rank_pages):
         """Return a list of tuples for each PageVertex,
            along with its PageRank rating.
+
+           Parameters: 
+           highest_rank_pages(List<str>): array of all PageVertex id's,
+                                    sorted from greatest to least
+                                    total endorsement value
+           
+           Returns: 
+           List<tuple<str, int>>: tuples in the form (str: page_id, int: rating)
+                where:
+                 - page_id is the id of a PageVertex instance
+                 - rating is its PageRank value (from 1-10, 1 being highest)
+                 - list elements sorted in order of highest ratings,
+                   i.e. all PageRanks of 1 come first, then the 2's, and so on
 
            Complexity Analysis:
            The runtime of this method scales linearly with the size
@@ -228,6 +301,16 @@ class InternetGraph:
         """
         Return the PageRank rating for each page.
 
+        Parameters: None
+
+        Returns:
+        List<tuple<str, int>>: tuples in the form (str: page_id, int: rating), 
+            where:
+                 - page_id is the id of a PageVertex instance
+                 - rating is its PageRank value (from 1-10, 1 being highest)
+                 - list elements sorted in order of highest ratings,
+                   i.e. all PageRanks of 1 come first, then the 2's, and so on 
+
         Complexity Analysis:
         The runtime of this method grows in relation to P and L
         asymptotically, which represent the number of PageVertexs and the 
@@ -254,7 +337,7 @@ class InternetGraph:
         then the shortest distance is used to determine if
         should be returned or not.
         
-        Arguments:
+        Parmeters:
         start_id (str): The id of the start PageVertex.
         link_distance (int): The distance from the 
                                 start vertex we want
@@ -271,7 +354,7 @@ class InternetGraph:
         """
         # check to make sure we have a valid start_id
         if not self.contains_page(start_id):
-            raise KeyError(f"PageVertex {start_id} not found in the InternetGraph!")
+            raise KeyError(f"PageVertex {start_id}.")
         # Store the starting page in a variable 
         start_page_obj = self.get_page(start_id)
         # Keep a count of steps taken from start so far
@@ -314,11 +397,19 @@ class InternetGraph:
         of the shortest path from a start page 
         to a destination.
 
+        Parameters:
+        start_id(str): the id of the PageVertex where the path begins
+        target_id(str): the id of the PageVertex where the path ends
+
+        Returns:
+        float: the total weight of the edges along the shortest path
+               from the starting to target PageVertex
+
         Complexity Analysis:
         The runtime of this method asymptotically increases quadratically 
-        with respect to P, the number of PageVertexs. The longest step is finding 
-        the minimum PageVertex to add, since an ordinary array is currently used to
-        simulate using a binary min heap.
+        with respect to P, the number of PageVertexs. The longest step is
+        finding the minimum PageVertex to add, since an ordinary array is
+        currently used to simulate using a binary min heap.
 
         Overall, the runtime of this method is O(P^2).
 
