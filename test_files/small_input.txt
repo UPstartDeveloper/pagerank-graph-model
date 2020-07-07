@@ -1,8 +1,8 @@
 A,B,C,D
-(A,B)
-(B,C)
-(B,D)
-(C,A)
-(C,D)
-(D,A)
-(D,B)
+A,B
+B,C
+B,D
+C,A
+C,D
+D,A
+D,B

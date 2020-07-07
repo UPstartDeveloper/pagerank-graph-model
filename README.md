@@ -11,12 +11,12 @@ Credits to Danny Sullivan, on Search Engine Land for the above image ([link to o
 
 1. [How Graph Theory Relates to PageRank](#how-graph-theory-relates-to-pagerank)
 2. [How the Model is Structured](#how-the-model-is-structured)
-3. [The ```InternetGraph``` Class](#the-internet-class)
-4. [The ```PageVertex``` Class](#the-page-class)
+3. [The ```InternetGraph``` Class](#the-internetgraph-class)
+4. [The ```PageVertex``` Class](#the-pagevertex-class)
 5. [Problems To Investigate](#problems-to-investigate)
-    - [Calculating the PageRank Rating for each PageVertex in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
-    - [Determining Which PageVertexs Can Be Reached After Clicking N links Away from a Starting PageVertex](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
-    - [Finding the Shortest Path Required to Get From One PageVertex to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
+    - [Calculating the PageRank Rating for each Page in a Network](#calculating-the-pagerank-rating-for-each-page-in-a-network)
+    - [Determining Which Pages Can Be Reached After Clicking N links Away from a Starting Page](#determining-which-pages-can-be-reached-after-clicking-n-links-away-from-a-starting-page)
+    - [Finding the Shortest Path Required to Get From One Page to Another](#finding-the-shortest-path-required-to-get-from-one-page-to-another)
 6. [Scale](#scale)
 7. [Resources](#resources)
 

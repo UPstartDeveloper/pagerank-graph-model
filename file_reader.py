@@ -30,7 +30,7 @@ def read_graph_from_file(filename):
         for index, line in enumerate(lines):
             if index >= 1:
                 # get ids of the vertices
-                ids = line[1:4].split(',')
+                ids = line.split(',')
                 # add an edge from the first vertex to the second
                 page1, page2 = ids[0], ids[1]
                 internet.link_pages(page1, page2)
