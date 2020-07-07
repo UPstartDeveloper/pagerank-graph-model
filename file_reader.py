@@ -38,6 +38,17 @@ def read_graph_from_file(filename):
         return internet
 
 if __name__ == '__main__':
-    filename = 'test_files/small_input.txt'
+    filename = 'test_files/large_input.txt'
     internet = read_graph_from_file(filename)
-    print(internet)
+    print(f'The Internet as We Know: {internet}')
+    # Test PageRank
+    rankings = internet.rank_pages()
+    print(f'Final rankings: {rankings}')
+    # Seeing What PageVertexs Can be Reached from 'B'
+    neighbors = internet.find_pages_n_away('B', 2)
+    print('Shortest distance neighbors 2 links away ' +
+          f'from B: {neighbors}')
+    # Finding Length of Shortest Path
+    b_to_d = internet.find_shortest_path('B', 'D')
+    print(f'Minimum weight of path from B to D: {b_to_d}')
+

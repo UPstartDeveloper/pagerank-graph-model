@@ -175,7 +175,7 @@ class InternetGraph:
 
     def __str__(self):
         '''Return the PageVertexs in this instance.'''
-        return f'InternetGraph with PageVertexs: {self.get_pages()}'
+        return f'InternetGraph with PageVertices: {self.get_pages()}'
 
 
     """What's the PageRank rating of each page?"""
