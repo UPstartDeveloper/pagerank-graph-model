@@ -15,9 +15,9 @@ class TestInternetGraphSmallInput(unittest.TestCase):
         actual = internet.rank_pages()
         expected = [
             ('B', 1),
-            ('C', 2),
+            ('A', 2),
             ('D', 3),
-            ('A', 4),    
+            ('C', 4)
         ]
         self.assertEqual(actual, expected)
 

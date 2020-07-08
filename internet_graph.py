@@ -87,6 +87,10 @@ class PageVertex:
         '''Return the id of this vertex.'''
         return self.page_id
 
+    def has_neighbor(self, page_id):
+        '''Return True or False based on if this Page links to the other.'''
+        return page_id in self.neighbors
+
 
 class InternetGraph:
     """
@@ -209,12 +213,18 @@ class InternetGraph:
         for page_id1 in all_page_ids:  # P^2 iterations
             endorsements = list()
             for page_id2 in all_page_ids:
+                # get the two Page objects
+                pag1, page2 = (
+                    self.get_page(page_id1),
+                    self.get_page(page_id2)
+                )
                 # use outlinks to see endorsements from others
-                if page_id1 == page_id2:
-                    # page cannot endorse itself
-                    endorsement_value = 0
+                if page2.has_neighbor(page_id1) is True:
+                    endorsement_value = page2.link_weight
+                # otherwise no endorsement was given
                 else:
-                    endorsement_value = self.pages[page_id2].link_weight
+                    endorsement_value = 0
+                # add the single endorsement 
                 endorsements.append(endorsement_value)
             inlinks[page_id1] = endorsements
         # compute total endorsement give to each page
