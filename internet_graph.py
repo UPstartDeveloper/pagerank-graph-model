@@ -226,11 +226,8 @@ class InternetGraph:
                     endorsement_value = 0
                 # add the single endorsement 
                 endorsements.append(endorsement_value)
-            inlinks[page_id1] = endorsements
-        # compute total endorsement give to each page
-        for page in inlinks:  # P iterations
-            total_endorsement = sum(inlinks[page])  # O(L)
-            inlinks[page] = total_endorsement
+            # map the Page to its total endorsement value
+            inlinks[page_id1] = sum(endorsements)
         return inlinks
 
     def sort_pages_by_inlinks(self, inlinks):
