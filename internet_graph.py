@@ -343,7 +343,16 @@ class InternetGraph:
         In this implementation, if a page has multiple
         paths to it from the start that differ in distance,
         then the shortest distance is used to determine if
-        should be returned or not.
+        should be returned or not. If that shortest distance
+        is less than the link_distance argument, the PageVertex
+        will not be returned at all.
+
+        For example: 
+        Suppose start_id = A, and link_distance = 2, 
+        and PageVertex A can reached PageVertex C
+        using either 1 link or 2 links - then PageVertex C will not
+        be returned, as the function considers C to only to be 1 link
+        away from A.
         
         Parmeters:
         start_id (str): The id of the start PageVertex.
