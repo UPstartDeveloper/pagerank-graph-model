@@ -191,9 +191,8 @@ class InternetGraph:
            Parameters: None
 
            Returns: 
-           dict: inlinks maps the page_id of every PageVertex in the
-                 InternetGraph, to the total numerical of the endorsements
-                 it receives from other pages
+           list: rankings is an array of the eigenvalues computed from
+                 an square matrix of each PageVertex's endorsements
 
            Complexity Analysis:
            The runtime of this implementation scales quadratically
@@ -209,7 +208,7 @@ class InternetGraph:
         """
         # compute how much endorsement each PageVertex got
         all_page_ids = list(self.pages.keys())  # O(P)
-        inlinks = dict()
+        inlinks = list()
         for page_id1 in all_page_ids:  # P^2 iterations
             endorsements = list()
             for page_id2 in all_page_ids:
@@ -226,42 +225,44 @@ class InternetGraph:
                     endorsement_value = 0
                 # add the single endorsement 
                 endorsements.append(endorsement_value)
-            # map the Page to its total endorsement value
-            inlinks[page_id1] = sum(endorsements)
-        return inlinks
+            # add the PageVertex's total endorsement vector
+            inlinks.append(endorsements)
+        # Rank the sites by finding the "eigenvalues" (after 20 iterations)
+        rankings = [1/len(self.pages) for page in self.pages]  # O(P)
+        for i in range(20):  # 20 iterations 
+            rankings = np.dot(inlinks, rankings)  # O(P^2)
+        return rankings
 
-    def sort_pages_by_inlinks(self, inlinks):
+    def sort_pages_by_inlinks(self, rankings_vector):
         """Return a list of PageVertexs sorted from 
            greatest to least total endorsement values.
 
            Parameters:
-           inlinks(dict): maps id of every PageVertex in the graph
-                          to the total numerical value of its inlinks
+           rankings_vector(list): eigenvalue of the endorsement
+                                  given to each PageVertex, in the
+                                  order the PageVertex appears in 
+                                  the self.pages dict
 
            Returns:
-           List<str>: array of all PageVertex id's, sorted from greatest to
-                 least total endorsement value
+           List<str>: array of all PageVertex id's, sorted from the greatest
+                      to least total eigenvalue
 
            Complexity Analysis:
            The runtime of this method scales asymptotically 
            the the time taken to sort the pages from greatest to
-           least. Since this step of the process is quadratically 
-           dependent on P, the number of PageVertexs, this can be expressed 
-           as O(P^2).
+           least. Since this step of the process uses TimSort, the sorting 
+           algorithm built-into Python, the runtime of this step is O(P log P)
+           where P = number of PageVertices.
 
         """
-        # rank all the PageVertexs
-        highest_rank_values = sorted(inlinks.values())  # O(P log P)
-        highest_rank_pages = list()
-        # sort pages from greatest to least
-        while len(highest_rank_values) > 0:  # P iterations
-            highest_val = max(highest_rank_values)  # O(P)
-            # find the page matching the next highest value
-            for page in inlinks:  # P iterations
-                if inlinks[page] == highest_val:
-                    highest_rank_pages.append(page)
-                    # remove the value from the list
-                    highest_rank_values.remove(highest_val)  # O(P)
+        # map each eigenvector to the id of its PageVertex
+        eig_page = dict()
+        for page_index, page_id in enumerate(self.pages.keys()):  # O(P)
+            eig = rankings_vector[page_index]
+            eig_page[eig] = page_id
+        # rank all the PageVertices
+        sorted_eigs = sorted(rankings_vector, reverse=True)  # O(P log P)
+        highest_rank_pages = [eig_page[eig] for eig in sorted_eigs]  # O(P)
         return highest_rank_pages
 
     def bucket_ranked_pages(self, highest_rank_pages):
@@ -327,9 +328,9 @@ class InternetGraph:
 
         """
         # compute how much endorsement each PageVertex got
-        inlinks = self.compute_inlink_values()  # O(P^2 + L)
+        rankings_vector = self.compute_inlink_values()  # O(P^2 + L)
         # rank all the PageVertexs
-        highest_rank_pages = self.sort_pages_by_inlinks(inlinks)  # O(P^2)
+        highest_rank_pages = self.sort_pages_by_inlinks(rankings_vector)  # O(P log P)
         # convert to list of PageRank ratings
         rankings = self.bucket_ranked_pages(highest_rank_pages)  # O(P)
         return rankings
