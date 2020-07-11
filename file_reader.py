@@ -24,13 +24,26 @@ def read_graph_from_file(filename):
         internet = InternetGraph()
         # Use the 1st line to add the vertices
         page_ids = lines[0].split(',')
+        print(page_ids)
         for p_id in page_ids:
+            # check that the PageVertex id isn't empty
+            assert len(p_id) != 0, (
+                "Please check that you have no extra commas in the file."
+            )
+            # add the new PageVertex object
             internet.add_page_by_id(p_id)
         # Use the 2nd+ line to add the edges
         for index, line in enumerate(lines):
             if index >= 1:
                 # get ids of the vertices
                 ids = line.split(',')
+                # check to make sure all the links have 2 PageVertices
+                if len(ids) != 2 or '' in ids:
+                    raise RuntimeError(
+                    "Please check that all links have two PageVertices " + 
+                    "exactly, and there is a blank line at the end of the " +
+                    "file."
+                )
                 # add an edge from the first vertex to the second
                 page1, page2 = ids[0], ids[1]
                 internet.link_pages(page1, page2)

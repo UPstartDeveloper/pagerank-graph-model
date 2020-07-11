@@ -3,6 +3,54 @@ from internet_graph import PageVertex, InternetGraph
 import file_reader
 
 
+class TestFileReader(unittest.TestCase):
+        def test_read_graph_from_file(self):
+            """
+            An InternetGraph is constructed based off reading from a 
+            file of the PageVertices and their links.
+            """
+            internet = file_reader.read_graph_from_file(
+                'test_files/small_input.txt'
+            )
+            # test number of PageVertices creates
+            self.assertEqual(len(internet.pages), 4)
+            # test the links created
+            pageA, pageB, pageC, pageD = (
+                internet.get_page('A'),
+                internet.get_page('B'),
+                internet.get_page('C'),
+                internet.get_page('D')
+            )
+            self.assertTrue(pageA.has_neighbor('B'))
+            self.assertTrue(pageB.has_neighbor('C'))
+            self.assertTrue(pageB.has_neighbor('D'))
+            self.assertTrue(pageC.has_neighbor('A'))
+            self.assertTrue(pageC.has_neighbor('D'))
+            self.assertTrue(pageD.has_neighbor('A'))
+            self.assertTrue(pageD.has_neighbor('B'))
+
+        def test_read_graph_from_file_no_newline(self):
+            """
+            The file reader function throws an error if
+            there is no newline at the end of the file.
+            """
+            with self.assertRaises(RuntimeError):
+                file_reader.read_graph_from_file(
+                    'test_files/error_input1.txt'
+                    )
+
+        def test_read_graph_from_file_extra_comma(self):
+            """
+            The file reader function throws an error if
+            a PageVertex is instaniated with '' as its
+            id.
+            """
+            with self.assertRaises(AssertionError):
+                file_reader.read_graph_from_file(
+                    'test_files/error_input2.txt'
+                    )
+
+
 class TestInternetGraphSmallInput(unittest.TestCase):
     """
     Test suite for datasets of under 10 PageVertices.
