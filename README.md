@@ -22,7 +22,7 @@ Credits to Danny Sullivan, on Search Engine Land for the above image ([link to o
 
 ## How Graph Theory Relates to PageRank
 
-If there's two things that the InternetGraph does really well, it's:
+If there's two things that the Internet does really well, it's:
 
 1. **Storing** Information, and
 2. **Connecting** people with that information
