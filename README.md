@@ -150,3 +150,5 @@ For more information explaining how PageRank works, and why you should care (as 
 2. [A 5 minute explanation of PageRank](https://youtu.be/-mUI1g5PZXI) from Matt Cutts, the former Head of the Web Spam team at Google.
 
 3. [Zach Star's explanation of PageRank](https://youtu.be/qxEkY8OScYY) uses adjaceny matrices to explain the algorithm. This explanation most closely resembles what is used in this project.
+
+4. [Technical Write-up of this Model](https://medium.com/@zain_raza/what-makes-google-search-work-942e38521348?source=friends_link&sk=a22d26c19f6b11cbd40b3d77afd65baf): in this blog post I go over the conceptual details involving Graph Theory more in detail.
