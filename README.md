@@ -36,10 +36,10 @@ This is because graphs **are also great** at:
 
 More specifically, here are further details to specify the graph data structure we will use in this project:
 
-- The graph in this case, will be represent all web pages on the InternetGraph. Will be implemented in Python using the ```InternetGraph``` class.
+- The graph in this case, will be represent all web pages on the Internet. Will be implemented in Python using the ```InternetGraph``` class.
 - Individual vertices in the graph are implemented by the ```PageVertex``` class.
 - Not all ```PageVertex``` instances in the graph are necessarily connected.
-- **Edges** between the pages **represent hyperlinks** on the InternetGraph.
+- **Edges** between the pages **represent hyperlinks** on the Internet.
 - **Edges are weighted**, in order to **represent the probability** that a user goes from a certain site to another.
 - **Edges are directed**. This is because **hyperlinks are one-way connections**. ```PageVertex A``` may link to ```PageVertex B``` for example, but the reverse is not necessarily true.
 
@@ -91,7 +91,7 @@ which will **return** a ```rankings``` array of pages, each element being a tupl
 
 The **runtime complexity** of this algorithm is ```O(P^3)```, where P is the number of ```PageVertex``` instances.
 
-### Determining Which PageVertexs Can Be Reached After Clicking N links Away from a Starting PageVertex
+### Determining Which Pages Can Be Reached After Clicking N links Away from a Starting PageVertex
 
 This problem is an application of **Breadth-First Search**.
 
@@ -105,7 +105,7 @@ which will **return** a ```destinations``` array of page ids which we can reach.
 
 The **runtime complexity** of this algorithm is ```O(P + E)```, where E is the number of links in our ```InternetGraph```, and P is the number of ```PageVertex``` instances.
 
-### Finding the Shortest Path Required to Get From One PageVertex to Another
+### Finding the Shortest Path Required to Get From One Page to Another
 
 This problem is an application of **Dijkstra's Shortest Path Algorithm**.
 
@@ -127,7 +127,7 @@ This section will report on *how solvable* the problems in this investigation be
 
     PageRank in its full complexity, appears to still work as we add more and more web pages and hyperlinks to the Web. According to [Search Engine Land](https://searchengineland.com/googles-search-indexes-hits-130-trillion-pages-documents-263378), as of 2016 Google has indexed over 130 trillion web pages. Although Google does not publicly announce how PageRank's implementation has changed over the years, [this article on Search Engine Roundtable](https://www.seroundtable.com/google-still-uses-pagerank-29056.html) reports that John Mueller, a Webmaster Trends Analyst at Google, stated in February that the company still uses the algorithm to rank pages *internally* in 2020.
 
-    Currently the method used to perform PageRank, ```InternetGraph.rank_pages```, runs in ```O(P^2 + L)```, where ```P = number of PageVertexs``` and ```L = number of links``` in the InternetGraph. This is mainly due to the runtime used to find the inlinks leading to each ```PageVertex``` - this is performed by a helper function ```InternetGraph.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
+    Currently the method used to perform PageRank, ```InternetGraph.rank_pages```, runs in ```O(P^2 + L)```, where ```P = number of PageVertexs``` and ```L = number of links``` in the Internet. This is mainly due to the runtime used to find the inlinks leading to each ```PageVertex``` - this is performed by a helper function ```InternetGraph.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
 
 2. Finding Neighbors n Links Away
 
