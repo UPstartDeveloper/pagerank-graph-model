@@ -150,5 +150,55 @@ class TestInternetGraphLargeInput(unittest.TestCase):
         self.assertEqual(actual, expected)
 
 
+class TestInternetGraphExtraLargeInput(unittest.TestCase):
+    """
+    Test suite for datasets of 30 PageVertices.
+    """
+    def test_rank_pages_large(self):
+        '''Test the PageRank ratings given for large test input file.'''
+        internet = file_reader.read_graph_from_file(
+            'test_files/extra_large_input.txt'
+        )
+        actual = internet.rank_pages()
+        expected = [
+            ('U', 1), ('3', 1), ('H', 1),
+            ('T', 2), ('Z', 2), ('1', 2),
+            ('1', 3), ('2', 3), ('Q', 3),
+            ('F', 4), ('R', 4), ('C', 4),
+            ('D', 5), ('B', 5), ('E', 5),
+            ('E', 6), ('V', 6), ('G', 6),
+            ('0', 7), ('0', 7), ('0', 7),
+            ('0', 8), ('0', 8), ('0', 8),
+            ('0', 9), ('0', 9), ('0', 9),
+            ('0', 10), ('0', 10), ('0', 10)]
+        self.assertEqual(actual, expected)
+
+    def test_find_n_away(self):
+        """
+        Test neighbors found given a certain minimum distance away from a
+        startinmg vertex.
+        """
+        internet = file_reader.read_graph_from_file(
+            'test_files/extra_large_input.txt'
+        )
+        start_id, links = 'B', 2
+        actual = internet.find_pages_n_away(start_id, links)
+        expected = ['A', 'F', 'E', 'G', 'H', 'R']
+        self.assertEqual(actual, expected)
+
+    def test_shortest_path(self):
+        """
+        Test the calculated total weight of shortest path
+        between two PageVertices.
+        """
+        internet = file_reader.read_graph_from_file(
+            'test_files/extra_large_input.txt'
+        )
+        start, target = 'B', 'D'
+        actual = internet.find_shortest_path(start, target)
+        expected = 0.16666666666666666
+        self.assertEqual(actual, expected)
+
+
 if __name__ == "__main__":
     unittest.main()

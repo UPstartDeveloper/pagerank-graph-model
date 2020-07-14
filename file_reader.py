@@ -24,7 +24,6 @@ def read_graph_from_file(filename):
         internet = InternetGraph()
         # Use the 1st line to add the vertices
         page_ids = lines[0].split(',')
-        print(page_ids)
         for p_id in page_ids:
             # check that the PageVertex id isn't empty
             assert len(p_id) != 0, (
@@ -44,14 +43,19 @@ def read_graph_from_file(filename):
                     "exactly, and there is a blank line at the end of the " +
                     "file."
                 )
+                # check to make sure the ids are valid
+                page_id1, page_id2 = ids[0], ids[1]
+                if not page_id1 in internet.pages:
+                    raise KeyError(f'{page_id1} not valid')
+                elif not page_id2 in internet.pages:
+                    raise KeyError(f'{page_id2} not valid')
                 # add an edge from the first vertex to the second
-                page1, page2 = ids[0], ids[1]
-                internet.link_pages(page1, page2)
+                internet.link_pages(page_id1, page_id2)
         # Return the Graph
         return internet
 
 if __name__ == '__main__':
-    filename = 'test_files/large_input.txt'
+    filename = 'test_files/extra_large_input.txt'
     internet = read_graph_from_file(filename)
     print(f'The Internet as We Know: {internet}')
     # Test PageRank
