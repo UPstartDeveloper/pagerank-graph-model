@@ -61,12 +61,12 @@ class TestInternetGraphSmallInput(unittest.TestCase):
             'test_files/small_input.txt'
         )
         actual = internet.rank_pages()
-        expected = [
-            ('B', 1),
-            ('D', 2),
-            ('A', 3),
-            ('C', 4)
-        ]
+        expected = {
+            1: ['B'],
+            2: ['D'],
+            3: ['A'],
+            4: ['C']
+        }
         self.assertEqual(actual, expected)
 
     def test_find_n_away(self):
@@ -108,19 +108,14 @@ class TestInternetGraphLargeInput(unittest.TestCase):
             'test_files/large_input.txt'
         )
         actual = internet.rank_pages()
-        expected = [
-            ('H', 1),
-            ('F', 1),
-            ('C', 2),
-            ('D', 2),
-            ('B', 3),
-            ('E', 3),
-            ('E', 4), 
-            ('G', 4),
-            ('K', 5),
-            ('K', 5),
-            ('K', 6)
-        ]
+        expected = {
+            1: ['H', 'F'],
+            2: ['C', 'D'],
+            3: ['B', 'A'],
+            4: ['E', 'G'],
+            5: ['I', 'J'],
+            6: ['K']
+        }
         self.assertEqual(actual, expected)
 
     def test_find_n_away(self):
@@ -133,7 +128,7 @@ class TestInternetGraphLargeInput(unittest.TestCase):
         )
         start_id, links = 'B', 2
         actual = internet.find_pages_n_away(start_id, links)
-        expected = ['A', 'F', 'E', 'G', 'H']
+        expected =['A', 'F', 'E', 'G', 'H']
         self.assertEqual(actual, expected)
 
     def test_shortest_path(self):
@@ -160,17 +155,18 @@ class TestInternetGraphExtraLargeInput(unittest.TestCase):
             'test_files/extra_large_input.txt'
         )
         actual = internet.rank_pages()
-        expected = [
-            ('U', 1), ('3', 1), ('H', 1),
-            ('T', 2), ('Z', 2), ('1', 2),
-            ('1', 3), ('2', 3), ('Q', 3),
-            ('F', 4), ('R', 4), ('C', 4),
-            ('D', 5), ('B', 5), ('E', 5),
-            ('E', 6), ('V', 6), ('G', 6),
-            ('0', 7), ('0', 7), ('0', 7),
-            ('0', 8), ('0', 8), ('0', 8),
-            ('0', 9), ('0', 9), ('0', 9),
-            ('0', 10), ('0', 10), ('0', 10)]
+        expected = {
+            1: ['U', '3', 'H'],
+            2: ['T', 'Z', 'Y'],
+            3: ['1', '2', 'Q'],
+            4: ['F', 'R', 'C'],
+            5: ['D', 'B', 'A'],
+            6: ['E', 'V', 'G'],
+            7: ['I', 'J', 'K'],
+            8: ['L', 'M', 'N'],
+            9: ['O', 'P', 'S'],
+            10: ['W', 'X', '0']
+        }
         self.assertEqual(actual, expected)
 
     def test_find_n_away(self):

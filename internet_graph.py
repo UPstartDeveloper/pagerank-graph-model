@@ -306,7 +306,7 @@ class InternetGraph:
         sorted_pages.sort(reverse=True, key=lambda p_eig: p_eig[1])
         # map each rating to a list of the appropiate pages
         rating_pages = dict()
-        for rating in range(1, num_possible_ranks):
+        for rating in range(1, num_possible_ranks + 1):
             # store a list of the page ids 
             pages = list()
             # compute indices of the pages we want
