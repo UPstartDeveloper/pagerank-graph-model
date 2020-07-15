@@ -22,7 +22,7 @@ Credits to Danny Sullivan, on Search Engine Land for the above image ([link to o
 
 ## How Graph Theory Relates to PageRank
 
-If there's two things that the InternetGraph does really well, it's:
+If there's two things that the Internet does really well, it's:
 
 1. **Storing** Information, and
 2. **Connecting** people with that information
@@ -36,10 +36,10 @@ This is because graphs **are also great** at:
 
 More specifically, here are further details to specify the graph data structure we will use in this project:
 
-- The graph in this case, will be represent all web pages on the InternetGraph. Will be implemented in Python using the ```InternetGraph``` class.
+- The graph in this case, will be represent all web pages on the Internet. Will be implemented in Python using the ```InternetGraph``` class.
 - Individual vertices in the graph are implemented by the ```PageVertex``` class.
 - Not all ```PageVertex``` instances in the graph are necessarily connected.
-- **Edges** between the pages **represent hyperlinks** on the InternetGraph.
+- **Edges** between the pages **represent hyperlinks** on the Internet.
 - **Edges are weighted**, in order to **represent the probability** that a user goes from a certain site to another.
 - **Edges are directed**. This is because **hyperlinks are one-way connections**. ```PageVertex A``` may link to ```PageVertex B``` for example, but the reverse is not necessarily true.
 
@@ -91,7 +91,7 @@ which will **return** a ```rankings``` array of pages, each element being a tupl
 
 The **runtime complexity** of this algorithm is ```O(P^3)```, where P is the number of ```PageVertex``` instances.
 
-### Determining Which PageVertexs Can Be Reached After Clicking N links Away from a Starting PageVertex
+### Determining Which Pages Can Be Reached After Clicking N links Away from a Starting PageVertex
 
 This problem is an application of **Breadth-First Search**.
 
@@ -105,7 +105,7 @@ which will **return** a ```destinations``` array of page ids which we can reach.
 
 The **runtime complexity** of this algorithm is ```O(P + E)```, where E is the number of links in our ```InternetGraph```, and P is the number of ```PageVertex``` instances.
 
-### Finding the Shortest Path Required to Get From One PageVertex to Another
+### Finding the Shortest Path Required to Get From One Page to Another
 
 This problem is an application of **Dijkstra's Shortest Path Algorithm**.
 
@@ -150,3 +150,5 @@ For more information explaining how PageRank works, and why you should care (as 
 2. [A 5 minute explanation of PageRank](https://youtu.be/-mUI1g5PZXI) from Matt Cutts, the former Head of the Web Spam team at Google.
 
 3. [Zach Star's explanation of PageRank](https://youtu.be/qxEkY8OScYY) uses adjaceny matrices to explain the algorithm. This explanation most closely resembles what is used in this project.
+
+4. [Technical Write-up of this Model](https://medium.com/@zain_raza/what-makes-google-search-work-942e38521348?source=friends_link&sk=a22d26c19f6b11cbd40b3d77afd65baf): in this blog post I go over the conceptual details involving Graph Theory more in detail.
