@@ -227,55 +227,11 @@ class InternetGraph:
                 endorsements.append(endorsement_value)
             # add the PageVertex's total endorsement vector
             inlinks.append(endorsements)
-        # Rank the sites by finding the "eigenvalues" after 20 iterations
+        # Rank the sites by finding the "eigenvalues" after 50 iterations
         rankings = np.array([1/len(self.pages) for page in self.pages]) # O(P)
-        for i in range(20): 
+        for i in range(50): 
             rankings = np.dot(inlinks, rankings)  # O(P^2)
-        # print(f'Rankings: {rankings}')
         return rankings
-
-    def sort_pages_by_inlinks(self, rankings_vector):
-        """Return a list of PageVertexs sorted from 
-           greatest to least total endorsement values.
-
-           Parameters:
-           rankings_vector(list): eigenvalue of the endorsement
-                                  given to each PageVertex, in the
-                                  order the PageVertex appears in 
-                                  the self.pages dict
-
-           Returns:
-           List<str>: array of all PageVertex id's, sorted from the greatest
-                      to least total eigenvalue
-
-           Complexity Analysis:
-           The runtime of this method scales asymptotically 
-           the the time taken to sort the pages from greatest to
-           least. Since this step of the process uses TimSort, the sorting 
-           algorithm built-into Python, the runtime of this step is O(P log P)
-           where P = number of PageVertices.
-
-        """
-        # map each eigenvector to the id of its PageVertex
-        page_eig = dict()
-        for page_index, page_id in enumerate(self.pages.keys()):  # O(P)
-            eig = rankings_vector[page_index]
-            page_eig[page] = page_id
-        # rank all the PageVertices
-        sorted_eigs = sorted(rankings_vector, reverse=True)  # O(P log P)
-        highest_rank_pages = [eig_page[eig] for eig in sorted_eigs]  # O(P)
-        print(f'Highest ranked pages: {highest_rank_pages}')
-        return highest_rank_pages
-        # map each eigenvector to the id of its PageVertex
-        eig_page = dict()
-        for page_index, page_id in enumerate(self.pages.keys()):  # O(P)
-            eig = rankings_vector[page_index]
-            eig_page[eig] = page_id
-        # rank all the PageVertices
-        sorted_eigs = sorted(rankings_vector, reverse=True)  # O(P log P)
-        highest_rank_pages = [eig_page[eig] for eig in sorted_eigs]  # O(P)
-        # print(f'Highest ranked pages: {highest_rank_pages}')
-        return highest_rank_pages
 
     def bucket_ranked_pages(self, page_eigs):
         """Return a list of tuples for each PageVertex,
@@ -290,9 +246,9 @@ class InternetGraph:
                  of the page ids which have that rating
 
            Complexity Analysis:
-           The runtime of this method scales linearly with the size
-           of P, as P grows asympotitcally larger. Therefore, the Big O
-           notation of the runtime is O(P).
+           The runtime of this method scales linearithmically with
+           the size of P, the number of PageVertices. Therefore it
+           id expressed in Big O as O(P log P).
 
         """
         # store variables for number of pages to rank 
@@ -303,41 +259,22 @@ class InternetGraph:
         bucket_len = math.ceil(num_rankings / num_possible_ranks)  # O(1)
         # sort the pages by the greatest eig values
         sorted_pages = list(page_eigs.items())
-        sorted_pages.sort(reverse=True, key=lambda p_eig: p_eig[1])
+        sorted_pages.sort(reverse=True, key=lambda p_eig: p_eig[1])  # O(P log P)
         # map each rating to a list of the appropiate pages
         rating_pages = dict()
-        for rating in range(1, num_possible_ranks + 1):
+        for rating in range(1, num_possible_ranks + 1):  # 10 iterations
             # store a list of the page ids 
             pages = list()
             # compute indices of the pages we want
             start = 0 + (bucket_len * (rating - 1))
             end = start + bucket_len
             # add the pages in that bucket
-            for page, eig in sorted_pages[start:end]:
+            for page, eig in sorted_pages[start:end]:  # O(P / 10) in total
                 pages.append(page)
             # map to the rating - if we haven't already added all pages
             if len(pages) > 0:
                 rating_pages[rating] = pages
         return rating_pages
-        
-
-        """# convert to list of PageRank ratings
-        rankings = list()
-        # store variables for number of pages to rank, and 
-        num_rankings = len(highest_rank_pages)  # O(P)
-        # store possible ratings we can give out (scale 1-10)
-        num_possible_ranks = 10
-        if num_rankings <= num_possible_ranks:
-            # each PR up to 10 is each to the index
-            for index, page in enumerate(highest_rank_pages):  # O(P)
-                rankings.append((page, index + 1))
-        else:
-            # each page is assigned a PR according to buckets
-            bucket_len = math.ceil(num_rankings / num_possible_ranks)  # O(1)
-            for index, page in enumerate(highest_rank_pages):  # P iterations
-                rating = int(index / bucket_len) + 1
-                rankings.append((page, rating))  # O(P) amortized
-        return rankings"""
 
     def rank_pages(self):
         """
@@ -366,17 +303,8 @@ class InternetGraph:
         # map all pages to their eigenvalues
         page_eigs = dict(zip(list(self.pages), rankings_vector)) 
         # convert to list of PageRank ratings
-        rating_pages = self.bucket_ranked_pages(page_eigs)  # O(P)
+        rating_pages = self.bucket_ranked_pages(page_eigs)  # O(P log P)
         return rating_pages
-        """
-        # compute how much endorsement each PageVertex got
-        rankings_vector = self.compute_inlink_values()  # O(P^2 + L)
-        # rank all the PageVertexs
-        highest_rank_pages = self.sort_pages_by_inlinks(rankings_vector)  # O(P log P)
-        # convert to list of PageRank ratings
-        rankings = self.bucket_ranked_pages(highest_rank_pages)  # O(P)
-        return rankings
-        """
 
     """What pages can I reach N links away from this page?"""
 

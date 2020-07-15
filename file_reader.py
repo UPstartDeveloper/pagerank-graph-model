@@ -55,7 +55,7 @@ def read_graph_from_file(filename):
         return internet
 
 if __name__ == '__main__':
-    filename = 'test_files/small_input.txt'
+    filename = 'test_files/extra_large_input.txt'
     internet = read_graph_from_file(filename)
     print(f'The Internet as We Know: {internet}')
     # Test PageRank

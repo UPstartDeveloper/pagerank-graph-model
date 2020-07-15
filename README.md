@@ -127,7 +127,7 @@ This section will report on *how solvable* the problems in this investigation be
 
     PageRank in its full complexity, appears to still work as we add more and more web pages and hyperlinks to the Web. According to [Search Engine Land](https://searchengineland.com/googles-search-indexes-hits-130-trillion-pages-documents-263378), as of 2016 Google has indexed over 130 trillion web pages. Although Google does not publicly announce how PageRank's implementation has changed over the years, [this article on Search Engine Roundtable](https://www.seroundtable.com/google-still-uses-pagerank-29056.html) reports that John Mueller, a Webmaster Trends Analyst at Google, stated in February that the company still uses the algorithm to rank pages *internally* in 2020.
 
-    Currently the method used to perform PageRank, ```InternetGraph.rank_pages```, runs in ```O(P^2 + L)```, where ```P = number of PageVertexs``` and ```L = number of links``` in the InternetGraph. This is mainly due to the runtime used to find the inlinks leading to each ```PageVertex``` - this is performed by a helper function ```InternetGraph.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L >>> 30```.
+    Currently the method used to perform PageRank, ```InternetGraph.rank_pages```, runs in ```O(P^2 + L)```, where ```P = number of PageVertexs``` and ```L = number of links``` in the InternetGraph. This is mainly due to the runtime used to find the inlinks leading to each ```PageVertex``` - this is performed by a helper function ```InternetGraph.compute_inlink_values```. This is not an efficient algorithm for inputs where ```P + L``` is much greater than 30, perhaps on the scale of 1000s of pages and links.
 
 2. Finding Neighbors n Links Away
 
