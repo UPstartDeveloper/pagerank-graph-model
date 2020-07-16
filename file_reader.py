@@ -1,13 +1,15 @@
-from internet_graph import PageVertex, InternetGraph
+from core.pygraph.classes.digraph import digraph
 
-# Credit for this script goes to:
-# https://github.com/UPstartDeveloper/Graph-ADT/blob/master/util/file_reader.py
+from internet_graph import PageVertex, InternetGraph
 
 
 def read_internet_graph(filename):
     """Read in data from the specified filename,
        and returns an InternetGraph object corresponding
        to that data.
+
+       Special thanks to Meredith Murphy for providing starter code
+       for this function.
 
        Parameters:
        filename (str): The relative path of the file to be processed
@@ -54,7 +56,23 @@ def read_internet_graph(filename):
         # Return the Graph
         return internet
 
+
+def read_pygraph(filename):
+    """Read in data from the specified filename,
+       and returns an InternetGraph object corresponding
+       to that data.
+
+       Parameters:
+       filename (str): The relative path of the file to be processed
+
+       Returns:
+       InternetGraph: A directed, weighted graph containing the specified
+                 PageVertexs. Not necessarily connected.
+
+    """
+
 if __name__ == '__main__':
+    graph = digraph()
     filename = 'test_files/extra_large_input.txt'
     internet = read_internet_graph(filename)
     print(f'The Internet as We Know: {internet}')
