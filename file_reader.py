@@ -4,7 +4,7 @@ from internet_graph import PageVertex, InternetGraph
 # https://github.com/UPstartDeveloper/Graph-ADT/blob/master/util/file_reader.py
 
 
-def read_graph_from_file(filename):
+def read_internet_graph(filename):
     """Read in data from the specified filename,
        and returns an InternetGraph object corresponding
        to that data.
@@ -56,7 +56,7 @@ def read_graph_from_file(filename):
 
 if __name__ == '__main__':
     filename = 'test_files/extra_large_input.txt'
-    internet = read_graph_from_file(filename)
+    internet = read_internet_graph(filename)
     print(f'The Internet as We Know: {internet}')
     # Test PageRank
     rankings = internet.rank_pages()

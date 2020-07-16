@@ -4,12 +4,12 @@ import file_reader
 
 
 class TestFileReader(unittest.TestCase):
-        def test_read_graph_from_file(self):
+        def test_read_internet_graph(self):
             """
             An InternetGraph is constructed based off reading from a 
             file of the PageVertices and their links.
             """
-            internet = file_reader.read_graph_from_file(
+            internet = file_reader.read_internet_graph(
                 'test_files/small_input.txt'
             )
             # test number of PageVertices creates
@@ -29,24 +29,24 @@ class TestFileReader(unittest.TestCase):
             self.assertTrue(pageD.has_neighbor('A'))
             self.assertTrue(pageD.has_neighbor('B'))
 
-        def test_read_graph_from_file_no_newline(self):
+        def test_read_internet_graph_no_newline(self):
             """
             The file reader function throws an error if
             there is no newline at the end of the file.
             """
             with self.assertRaises(RuntimeError):
-                file_reader.read_graph_from_file(
+                file_reader.read_internet_graph(
                     'test_files/error_input1.txt'
                     )
 
-        def test_read_graph_from_file_extra_comma(self):
+        def test_read_internet_graph_extra_comma(self):
             """
             The file reader function throws an error if
             a PageVertex is instaniated with '' as its
             id.
             """
             with self.assertRaises(AssertionError):
-                file_reader.read_graph_from_file(
+                file_reader.read_internet_graph(
                     'test_files/error_input2.txt'
                     )
 
@@ -57,7 +57,7 @@ class TestInternetGraphSmallInput(unittest.TestCase):
     """
     def test_rank_pages_small(self):
         '''Test the PageRank ratings given for small test input file.'''
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/small_input.txt'
         )
         actual = internet.rank_pages()
@@ -74,7 +74,7 @@ class TestInternetGraphSmallInput(unittest.TestCase):
         Test neighbors found given a certain minimum distance away from a
         startinmg vertex.
         """
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/small_input.txt'
         )
         start_id, links = 'B', 2
@@ -87,7 +87,7 @@ class TestInternetGraphSmallInput(unittest.TestCase):
         Test the calculated total weight of shortest path
         between two PageVertices.
         """
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/small_input.txt'
         )
         start, target = 'B', 'D'
@@ -104,7 +104,7 @@ class TestInternetGraphLargeInput(unittest.TestCase):
     """
     def test_rank_pages_large(self):
         '''Test the PageRank ratings given for large test input file.'''
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/large_input.txt'
         )
         actual = internet.rank_pages()
@@ -123,7 +123,7 @@ class TestInternetGraphLargeInput(unittest.TestCase):
         Test neighbors found given a certain minimum distance away from a
         startinmg vertex.
         """
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/large_input.txt'
         )
         start_id, links = 'B', 2
@@ -136,7 +136,7 @@ class TestInternetGraphLargeInput(unittest.TestCase):
         Test the calculated total weight of shortest path
         between two PageVertices.
         """
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/large_input.txt'
         )
         start, target = 'B', 'D'
@@ -151,7 +151,7 @@ class TestInternetGraphExtraLargeInput(unittest.TestCase):
     """
     def test_rank_pages_large(self):
         '''Test the PageRank ratings given for large test input file.'''
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/extra_large_input.txt'
         )
         actual = internet.rank_pages()
@@ -174,7 +174,7 @@ class TestInternetGraphExtraLargeInput(unittest.TestCase):
         Test neighbors found given a certain minimum distance away from a
         startinmg vertex.
         """
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/extra_large_input.txt'
         )
         start_id, links = 'B', 2
@@ -187,7 +187,7 @@ class TestInternetGraphExtraLargeInput(unittest.TestCase):
         Test the calculated total weight of shortest path
         between two PageVertices.
         """
-        internet = file_reader.read_graph_from_file(
+        internet = file_reader.read_internet_graph(
             'test_files/extra_large_input.txt'
         )
         start, target = 'B', 'D'
