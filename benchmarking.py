@@ -27,3 +27,12 @@ def compute_avg_time(f, trials):
     ]
     # calculate the average time
     return (sum(times) / trials)
+
+if __name__ == '__main__':
+    # define file to read from
+    filename = 'test_files/extra_large_input.txt'
+    # make a graph using InternetGraph and PageVertex
+    internet_graph = file_reader.read_graph_from_file(filename)
+    # make a graph using python-graph
+    # time internet_graph
+    # time python-graph
