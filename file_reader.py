@@ -19,7 +19,7 @@ def read_internet_graph(filename):
                  PageVertexs. Not necessarily connected.
 
     """
-        # Open the file
+    # Open the file
     with open(filename) as f:
         # read in all lines from the file, without the '\n' characters
         lines = [line[:-1] for line in f.readlines()]
@@ -59,22 +59,60 @@ def read_internet_graph(filename):
 
 def read_pygraph(filename):
     """Read in data from the specified filename,
-       and returns an InternetGraph object corresponding
+       and returns an digraph object corresponding
        to that data.
 
        Parameters:
        filename (str): The relative path of the file to be processed
 
        Returns:
-       InternetGraph: A directed, weighted graph containing the specified
-                 PageVertexs. Not necessarily connected.
+       digraph: Digraphs are built of nodes and directed edges.
 
     """
+    # Open the file
+    with open(filename) as f:
+        # read in all lines from the file, without the '\n' characters
+        lines = [line[:-1] for line in f.readlines()]
+        internet = digraph()
+        # Use the 1st line to add the vertices
+        page_ids = lines[0].split(',')
+        for p_id in page_ids:
+            # check that the PageVertex id isn't empty
+            assert len(p_id) != 0, (
+                "Please check that you have no extra commas in the file."
+            )
+            # add the new pages as vertices
+            internet.add_node(p_id)
+        # Use the 2nd+ line to add the edges
+        for index, line in enumerate(lines):
+            if index >= 1:
+                # get ids of the vertices
+                ids = line.split(',')
+                # check to make sure all the links have 2 PageVertices
+                if len(ids) != 2 or '' in ids:
+                    raise RuntimeError(
+                    "Please check that all links have two PageVertices " + 
+                    "exactly, and there is a blank line at the end of the " +
+                    "file."
+                )
+                # check to make sure the ids are valid
+                page_id1, page_id2 = ids[0], ids[1]
+                if not page_id1 in internet.nodes():
+                    raise KeyError(f'{page_id1} not valid')
+                elif not page_id2 in internet.nodes():
+                    raise KeyError(f'{page_id2} not valid')
+                # get the node
+                node = internet[page_id1]
+                # TODO: calculate the weight of new edge
+                # weight = (1 / len(internet.neighbors(node)) + 1)
+                # add an edge from the first vertex to the second
+                internet.add_edge((page_id1, page_id2), wt=weight)
+        # Return the digraph
+        return internet
 
 if __name__ == '__main__':
-    graph = digraph()
     filename = 'test_files/extra_large_input.txt'
-    internet = read_internet_graph(filename)
+    internet = read_pygraph(filename)
     print(f'The Internet as We Know: {internet}')
     # Test PageRank
     rankings = internet.rank_pages()
