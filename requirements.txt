@@ -11,7 +11,7 @@ jupyter-client==6.1.5
 jupyter-core==4.6.3
 more-itertools==8.4.0
 networkx==2.4
-numpy==1.19.0
+numpy==1.22.0
 packaging==20.4
 parso==0.7.0
 pexpect==4.8.0
